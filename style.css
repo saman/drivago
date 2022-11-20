@@ -1,0 +1,40 @@
+body {
+    font-family: 'Airbnb Cereal App';
+}
+
+.hide {
+    display: none;
+}
+
+#app {
+    margin: 10px;
+}
+
+h4 {
+    margin: 0;
+    padding: 0;
+}
+
+.question {
+    margin: 20px 0 10px 0;
+}
+
+.validate {
+    background-color: green;
+}
+
+ul li {
+    list-style: none;
+}
+
+.green {
+    color: green;
+}
+
+.red {
+    color: red;
+}
+
+input[disabled] {
+    background-color: gray;
+}

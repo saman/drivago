@@ -1,0 +1,546 @@
+[{
+        "id": 1,
+        "cat_nr": "1.1",
+        "title": "Gefahrenlehre"
+    },
+    {
+        "id": 2,
+        "cat_nr": "1.1.01",
+        "title": "Grundformen des Verkehrsverhaltens (Defensive Fahrweise, Behinderung, Gef\u00e4hrdung)"
+    },
+    {
+        "id": 3,
+        "cat_nr": "1.1.02",
+        "title": "Verhalten gegen\u00fcber Fu\u00dfg\u00e4ngern (Kinder, \u00e4ltere Menschen, Behinderte, Fu\u00dfg\u00e4nger allgemein)"
+    },
+    {
+        "id": 4,
+        "cat_nr": "1.1.03",
+        "title": "Fahrbahn- und Witterungsverh\u00e4ltnisse"
+    },
+    {
+        "id": 5,
+        "cat_nr": "1.1.04",
+        "title": "Dunkelheit und schlechte Sicht"
+    },
+    {
+        "id": 6,
+        "cat_nr": "1.1.05",
+        "title": "Geschwindigkeit"
+    },
+    {
+        "id": 7,
+        "cat_nr": "1.1.06",
+        "title": "\u00dcberholen"
+    },
+    {
+        "id": 8,
+        "cat_nr": "1.1.07",
+        "title": "Besondere Verkehrssituationen"
+    },
+    {
+        "id": 9,
+        "cat_nr": "1.1.09",
+        "title": "Alkohol, Drogen Medikamente"
+    },
+    {
+        "id": 10,
+        "cat_nr": "1.2",
+        "title": "Verhalten im Stra\u00dfenverkehr"
+    },
+    {
+        "id": 11,
+        "cat_nr": "1.2.01",
+        "title": "Grundregeln \u00fcber das Verhalten im Stra\u00dfenverkehr"
+    },
+    {
+        "id": 12,
+        "cat_nr": "1.2.02",
+        "title": "Stra\u00dfenbenutzung"
+    },
+    {
+        "id": 13,
+        "cat_nr": "1.2.03",
+        "title": "Geschwindigkeit"
+    },
+    {
+        "id": 14,
+        "cat_nr": "1.2.04",
+        "title": "Abstand"
+    },
+    {
+        "id": 15,
+        "cat_nr": "1.2.05",
+        "title": "\u00dcberholen"
+    },
+    {
+        "id": 16,
+        "cat_nr": "1.2.06",
+        "title": "Vorbeifahren"
+    },
+    {
+        "id": 17,
+        "cat_nr": "1.2.07",
+        "title": "Benutzung von Fahrstreifen durch Kraftfahrzeuge"
+    },
+    {
+        "id": 18,
+        "cat_nr": "1.2.09",
+        "title": "Abbiegen, Wenden und R\u00fcckw\u00e4rtsfahren"
+    },
+    {
+        "id": 19,
+        "cat_nr": "1.2.10",
+        "title": "Einfahren und Anfahren"
+    },
+    {
+        "id": 20,
+        "cat_nr": "1.2.11",
+        "title": "Besondere Verkehrslagen"
+    },
+    {
+        "id": 21,
+        "cat_nr": "1.2.12",
+        "title": "Halten und Parken"
+    },
+    {
+        "id": 22,
+        "cat_nr": "1.2.16",
+        "title": "Warnzeichen"
+    },
+    {
+        "id": 23,
+        "cat_nr": "1.2.17",
+        "title": "Beleuchtung"
+    },
+    {
+        "id": 24,
+        "cat_nr": "1.2.19",
+        "title": "Bahn\u00fcberg\u00e4nge"
+    },
+    {
+        "id": 25,
+        "cat_nr": "1.2.20",
+        "title": "\u00d6ffentliche Verkehrsmittel und Schulbusse"
+    },
+    {
+        "id": 26,
+        "cat_nr": "1.2.22",
+        "title": "Ladung"
+    },
+    {
+        "id": 27,
+        "cat_nr": "1.2.23",
+        "title": "Sonstige Pflichten des Fahrzeugf\u00fchrers"
+    },
+    {
+        "id": 28,
+        "cat_nr": "1.2.26",
+        "title": "Verhalten an Fu\u00dfg\u00e4nger\u00fcberwegen und gegen\u00fcber Fu\u00dfg\u00e4ngern"
+    },
+    {
+        "id": 29,
+        "cat_nr": "1.2.34",
+        "title": "Unfall"
+    },
+    {
+        "id": 30,
+        "cat_nr": "1.2.36",
+        "title": "Zeichen und Weisungen der Polizeibeamten"
+    },
+    {
+        "id": 31,
+        "cat_nr": "1.2.37",
+        "title": "Wechsellichtzeichen und Dauerlichtzeichen"
+    },
+    {
+        "id": 32,
+        "cat_nr": "1.2.38",
+        "title": "Blaues Blinklicht und gelbes Blinklicht"
+    },
+    {
+        "id": 33,
+        "cat_nr": "1.3",
+        "title": "Vorfahrt, Vorrang"
+    },
+    {
+        "id": 34,
+        "cat_nr": "1.3.01",
+        "title": "Vorfahrt, Vorrang"
+    },
+    {
+        "id": 35,
+        "cat_nr": "1.4",
+        "title": "Verkehrszeichen"
+    },
+    {
+        "id": 36,
+        "cat_nr": "1.4.40",
+        "title": "Gefahrzeichen"
+    },
+    {
+        "id": 37,
+        "cat_nr": "1.4.41",
+        "title": "Vorschriftzeichen"
+    },
+    {
+        "id": 38,
+        "cat_nr": "1.4.42",
+        "title": "Richtzeichen"
+    },
+    {
+        "id": 39,
+        "cat_nr": "1.4.43",
+        "title": "Verkehrseinrichtungen"
+    },
+    {
+        "id": 40,
+        "cat_nr": "1.5",
+        "title": "Umweltschutz"
+    },
+    {
+        "id": 41,
+        "cat_nr": "1.5.01",
+        "title": "Umweltschutz"
+    },
+    {
+        "id": 42,
+        "cat_nr": "1.7",
+        "title": "Technik (Fahrbetrieb, Fahrphysik, Fahrtechnik)"
+    },
+    {
+        "id": 43,
+        "cat_nr": "1.7.01",
+        "title": "Technik (Fahrbetrieb, Fahrphysik, Fahrtechnik)"
+    },
+    {
+        "id": 44,
+        "cat_nr": "1.8",
+        "title": "Eignung und Bef\u00e4higung von Kraftfahrern"
+    },
+    {
+        "id": 45,
+        "cat_nr": "1.8.01",
+        "title": "Eignung und Bef\u00e4higung von Kraftfahrern"
+    },
+    {
+        "id": 46,
+        "cat_nr": "2.1",
+        "title": "Gefahrenlehre"
+    },
+    {
+        "id": 47,
+        "cat_nr": "2.1.01",
+        "title": "Grundformen des Verkehrsverhaltens"
+    },
+    {
+        "id": 48,
+        "cat_nr": "2.1.02",
+        "title": "Verhalten gegen\u00fcber Fu\u00dfg\u00e4ngern"
+    },
+    {
+        "id": 49,
+        "cat_nr": "2.1.03",
+        "title": "Fahrbahn- und Witterungsverh\u00e4ltnisse"
+    },
+    {
+        "id": 50,
+        "cat_nr": "2.1.04",
+        "title": "Dunkelheit und schlechte Sicht"
+    },
+    {
+        "id": 51,
+        "cat_nr": "2.1.05",
+        "title": "Geschwindigkeit"
+    },
+    {
+        "id": 52,
+        "cat_nr": "2.1.06",
+        "title": "\u00dcberholen"
+    },
+    {
+        "id": 53,
+        "cat_nr": "2.1.07",
+        "title": "Besondere Verkehrssituationen"
+    },
+    {
+        "id": 54,
+        "cat_nr": "2.1.08",
+        "title": "Autobahn"
+    },
+    {
+        "id": 55,
+        "cat_nr": "2.1.09",
+        "title": "Alkohol, Drogen, Medikamente"
+    },
+    {
+        "id": 56,
+        "cat_nr": "2.1.10",
+        "title": "Erm\u00fcdung, Ablenkung"
+    },
+    {
+        "id": 57,
+        "cat_nr": "2.1.11",
+        "title": "Affektiv-emotionales Verhalten im Stra\u00dfenverkehr"
+    },
+    {
+        "id": 58,
+        "cat_nr": "2.2",
+        "title": "Verhalten im Stra\u00dfenverkehr"
+    },
+    {
+        "id": 59,
+        "cat_nr": "2.2.02",
+        "title": "Stra\u00dfenbenutzung"
+    },
+    {
+        "id": 60,
+        "cat_nr": "2.2.03",
+        "title": "Geschwindigkeit"
+    },
+    {
+        "id": 61,
+        "cat_nr": "2.2.04",
+        "title": "Abstand"
+    },
+    {
+        "id": 62,
+        "cat_nr": "2.2.05",
+        "title": "\u00dcberholen"
+    },
+    {
+        "id": 63,
+        "cat_nr": "2.2.07",
+        "title": "Benutzung von Fahrstreifen durch Kraftfahrzeuge"
+    },
+    {
+        "id": 64,
+        "cat_nr": "2.2.09",
+        "title": "Abbiegen, Wenden und R\u00fcckw\u00e4rtsfahren"
+    },
+    {
+        "id": 65,
+        "cat_nr": "2.2.12",
+        "title": "Halten und Parken"
+    },
+    {
+        "id": 66,
+        "cat_nr": "2.2.13",
+        "title": "Einrichtungen zur \u00dcberwachung der Parkzeit"
+    },
+    {
+        "id": 67,
+        "cat_nr": "2.2.14",
+        "title": "Sorgfaltspflichten"
+    },
+    {
+        "id": 68,
+        "cat_nr": "2.2.15",
+        "title": "Liegenbleiben und Abschleppen von Fahrzeugen"
+    },
+    {
+        "id": 69,
+        "cat_nr": "2.2.16",
+        "title": "Warnzeichen"
+    },
+    {
+        "id": 70,
+        "cat_nr": "2.2.17",
+        "title": "Beleuchtung"
+    },
+    {
+        "id": 71,
+        "cat_nr": "2.2.18",
+        "title": "Autobahnen und Kraftfahrstra\u00dfen"
+    },
+    {
+        "id": 72,
+        "cat_nr": "2.2.19",
+        "title": "Bahn\u00fcberg\u00e4nge"
+    },
+    {
+        "id": 73,
+        "cat_nr": "2.2.21",
+        "title": "Personenbef\u00f6rderung"
+    },
+    {
+        "id": 74,
+        "cat_nr": "2.2.22",
+        "title": "Ladung"
+    },
+    {
+        "id": 75,
+        "cat_nr": "2.2.23",
+        "title": "Sonstige Pflichten des Fahrzeugf\u00fchrers"
+    },
+    {
+        "id": 76,
+        "cat_nr": "2.2.26",
+        "title": "Verhalten an Fu\u00dfg\u00e4nger\u00fcberwegen und gegen\u00fcber Fu\u00dfg\u00e4ngern"
+    },
+    {
+        "id": 77,
+        "cat_nr": "2.2.29",
+        "title": "\u00dcberm\u00e4\u00dfige Stra\u00dfenbenutzung"
+    },
+    {
+        "id": 78,
+        "cat_nr": "2.2.30",
+        "title": "Sonntagsfahrverbot"
+    },
+    {
+        "id": 79,
+        "cat_nr": "2.2.32",
+        "title": "Verkehrshindernisse"
+    },
+    {
+        "id": 80,
+        "cat_nr": "2.2.34",
+        "title": "Unfall"
+    },
+    {
+        "id": 81,
+        "cat_nr": "2.2.37",
+        "title": "Wechsellichtzeichen und Dauerlichtzeichen"
+    },
+    {
+        "id": 82,
+        "cat_nr": "2.4",
+        "title": "Verkehrszeichen"
+    },
+    {
+        "id": 83,
+        "cat_nr": "2.4.40",
+        "title": "Gefahrzeichen"
+    },
+    {
+        "id": 84,
+        "cat_nr": "2.4.41",
+        "title": "Vorschriftzeichen"
+    },
+    {
+        "id": 85,
+        "cat_nr": "2.4.42",
+        "title": "Richtzeichen"
+    },
+    {
+        "id": 86,
+        "cat_nr": "2.4.43",
+        "title": "Verkehrseinrichtungen"
+    },
+    {
+        "id": 87,
+        "cat_nr": "2.5",
+        "title": "Umweltschutz"
+    },
+    {
+        "id": 88,
+        "cat_nr": "2.5.01",
+        "title": "Umweltschutz"
+    },
+    {
+        "id": 89,
+        "cat_nr": "2.6",
+        "title": "Vorschriften \u00fcber den Betrieb der Fahrzeuge"
+    },
+    {
+        "id": 90,
+        "cat_nr": "2.6.01",
+        "title": "Untersuchung der Fahrzeuge"
+    },
+    {
+        "id": 91,
+        "cat_nr": "2.6.02",
+        "title": "Zulassung zum Stra\u00dfenverkehr, Fahrzeugpapiere, Fahrerlaubnis"
+    },
+    {
+        "id": 92,
+        "cat_nr": "2.6.03",
+        "title": "Anh\u00e4ngerbetrieb"
+    },
+    {
+        "id": 93,
+        "cat_nr": "2.6.04",
+        "title": "Lenk- und Ruhezeiten"
+    },
+    {
+        "id": 94,
+        "cat_nr": "2.6.05",
+        "title": "EG-Kontrollger\u00e4t"
+    },
+    {
+        "id": 95,
+        "cat_nr": "2.6.06",
+        "title": "Abmessungen und Gewichte"
+    },
+    {
+        "id": 96,
+        "cat_nr": "2.6.07",
+        "title": "Lesen einer Stra\u00dfenkarte und Streckenplanung"
+    },
+    {
+        "id": 97,
+        "cat_nr": "2.7",
+        "title": "Technik (Fahrbetrieb, Fahrphysik, Fahrtechnik)"
+    },
+    {
+        "id": 98,
+        "cat_nr": "2.7.01",
+        "title": "Fahrbetrieb, Fahrphysik, Fahrtechnik"
+    },
+    {
+        "id": 99,
+        "cat_nr": "2.7.02",
+        "title": "M\u00e4ngelerkennung, Lokalisierung von St\u00f6rungen"
+    },
+    {
+        "id": 100,
+        "cat_nr": "2.7.03",
+        "title": "Verbrennungsmaschine, Fl\u00fcssigkeiten, Kraftstoffsystem, elektrische Anlage, Z\u00fcndung, Kraft\u00fcbertragung"
+    },
+    {
+        "id": 101,
+        "cat_nr": "2.7.04",
+        "title": "Schmier- und Frostschutzmittel"
+    },
+    {
+        "id": 102,
+        "cat_nr": "2.7.05",
+        "title": "Verwendung und Wartung von Reifen"
+    },
+    {
+        "id": 103,
+        "cat_nr": "2.7.06",
+        "title": "Bremsanlagen und Geschwindigkeitsregler"
+    },
+    {
+        "id": 104,
+        "cat_nr": "2.7.07",
+        "title": "Anh\u00e4ngekupplungssysteme"
+    },
+    {
+        "id": 105,
+        "cat_nr": "2.7.08",
+        "title": "Wartung von Kraftfahrzeugen und rechtzeitige Veranlassung von Reparaturen"
+    },
+    {
+        "id": 106,
+        "cat_nr": "2.7.09",
+        "title": "Entgegennahme, Transport und Ablieferung der G\u00fcter"
+    },
+    {
+        "id": 107,
+        "cat_nr": "2.7.10",
+        "title": "Ausr\u00fcstung von Fahrzeugen"
+    },
+    {
+        "id": 108,
+        "cat_nr": "2.8",
+        "title": "Eignung und Bef\u00e4higung von Kraftfahrern"
+    },
+    {
+        "id": 109,
+        "cat_nr": "2.8.01",
+        "title": "Eignung und Bef\u00e4higung von Kraftfahrern"
+    }
+]

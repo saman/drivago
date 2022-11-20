@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drivago</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/modern-css-reset/dist/reset.min.css" />
+    <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css">
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./fonts/style.css">
+    <link rel="manifest" href="./manifest.json" />
+    <link rel="apple-touch-icon" href="./media/2-4-42-103.jpg">
+
+</head>
+
+<body>
+    <div id="app" v-if="loaded">
+        <nav>
+            <ul>
+                <li><a href="#" class="secondary"><i class="fas fa-globe-europe"></i></a></li>
+            </ul>
+            <ul>
+                <li><strong>Drivago</strong></li>
+            </ul>
+            <ul>
+                <li><a href="#" class="secondary"><i class="fas fa-envelope"></i></a></li>
+            </ul>
+        </nav>
+        {{index + 1}} / {{ data.questions | len }}
+        <!-- <input type="text" v-model="index"> -->
+        <div class="grid">
+            <button class="button" @click="prevQuestion" class="">Previous</button>
+            <button class="button" @click="nextQuestion">Next</button>
+        </div>
+        <div>
+            <img v-if="question.image" :src="question.image">
+            <video controls v-if="question.video" :src="question.video"></video>
+        </div>
+        <div class="question">
+            <h4>{{question.q}}</h4>
+            <span>{{question.meta_data.p}} points</span>
+        </div>
+        <button class="button" v-if="question.c">Help</button>
+
+        <br>
+        <span v-if="question.pr">{{question.pr}}</span>
+        <ul v-if="!validateValue">
+            <li v-if="question.a1">
+                <label>
+                    <input v-model="values.a1" type="checkbox" name="a1">
+                    {{question.a1}}
+                </label>
+            </li>
+            <li v-if="question.a2">
+                <label>
+                    <input v-model="values.a2" type="checkbox" name="a2">
+                    {{question.a2}}
+                </label>
+            </li>
+            <li v-if="question.a3">
+                <label>
+                    <input v-model="values.a3" type="checkbox" name="a3" id="a3">
+                    {{question.a3}}
+                </label>
+            </li>
+        </ul>
+        <ul v-if="validateValue">
+            <li v-if="question.a1">
+                <input v-model="values.a1" disabled type="checkbox" name="a1" id="a1">
+                <label :class="{'green': question.v1 == 'x', 'red': !question.v1 && values.a1}">
+                    {{ question.v1 == undefined || question.v1 == 'x' || question.v1 == '' ? question.a1 : question.v1}}
+                </label>
+            </li>
+            <li v-if="question.a2">
+                <input v-model="values.a2" disabled type="checkbox" name="a2" id="a2">
+                <label :class="{'green': question.v2 == 'x', 'red': !question.v2 && values.a2}">
+                    {{ question.v2 == undefined || question.v2 == 'x' || question.v2 == '' ? question.a2 : question.v2}}
+                </label>
+            </li>
+            <li v-if="question.a3">
+                <input v-model="values.a3" disabled type="checkbox" name="a3" id="a3">
+                <label :class="{'green': question.v3 == 'x', 'red': !question.v3 && values.a3}">
+                    {{ question.v3 == undefined || question.v3 == 'x' || question.v3 == '' ? question.a3 : question.v3}}
+                </label>
+            </li>
+        </ul>
+        <button @click="validate" class="button validate">Validate</button>
+        <div class="hide">
+            <pre>{{originalQuestion | json}}</pre>
+            <pre>{{question | json}}</pre>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.3.4"></script>
+    <script src="./script.js"></script>
+</body>
+
+</html>
