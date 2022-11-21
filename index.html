@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="./style.css">
     <link rel="stylesheet" href="./fonts/style.css">
     <link rel="manifest" href="./manifest.json" />
-    <link rel="apple-touch-icon" href="./media/2-4-42-103.jpg">
+    <link rel="apple-touch-icon" href="icon.png">
     <meta name="viewport" content="width=device-width; initial-scale=1; viewport-fit=cover">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -71,20 +71,20 @@
         </ul>
         <ul v-if="validateValue">
             <li v-if="question.a1">
-                <input v-model="values.a1" disabled type="checkbox" name="a1" id="a1">
                 <label :class="{'green': question.v1 == 'x', 'red': !question.v1 && values.a1}">
+                    <input v-model="values.a1" disabled type="checkbox" name="a1">
                     {{ question.v1 == undefined || question.v1 == 'x' || question.v1 == '' ? question.a1 : question.v1}}
                 </label>
             </li>
             <li v-if="question.a2">
-                <input v-model="values.a2" disabled type="checkbox" name="a2" id="a2">
                 <label :class="{'green': question.v2 == 'x', 'red': !question.v2 && values.a2}">
+                    <input v-model="values.a2" disabled type="checkbox" name="a2">
                     {{ question.v2 == undefined || question.v2 == 'x' || question.v2 == '' ? question.a2 : question.v2}}
                 </label>
             </li>
             <li v-if="question.a3">
-                <input v-model="values.a3" disabled type="checkbox" name="a3" id="a3">
                 <label :class="{'green': question.v3 == 'x', 'red': !question.v3 && values.a3}">
+                    <input v-model="values.a3" disabled type="checkbox" name="a3">
                     {{ question.v3 == undefined || question.v3 == 'x' || question.v3 == '' ? question.a3 : question.v3}}
                 </label>
             </li>
