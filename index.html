@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <link rel="stylesheet" href="https://unpkg.com/modern-css-reset/dist/reset.min.css" />
     <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css">
-    <link rel="stylesheet" href="./style.css">
+    <link class="refresh" rel="stylesheet" href="./style.css">
     <link rel="stylesheet" href="./fonts/style.css">
     <link rel="manifest" href="./manifest.json" />
     <link rel="apple-touch-icon" href="icon.png">
@@ -97,7 +97,29 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.3.4"></script>
-    <script src="./script.js"></script>
+    <script class="refresh" src="./script.js"></script>
+    <script>
+        (function() {
+            var h, a, f;
+            a = document.getElementsByClassName("refresh")
+            for (h = 0; h < a.length; h++) {
+                f = a[h];
+
+                if (f.href || f.src) {
+                    var g = f.href || f.src;
+                    g = g.replace(/(&|\?)rnd=\d+/, '');
+                    g = g + (g.match(/\?/) ? '&' : '?');
+                    g += 'rnd=' + (new Date().valueOf());
+
+                    if (f.href) {
+                        f.href = g;
+                    } else if (f.src) {
+                        f.src = g;
+                    }
+                }
+            }
+        })()
+    </script>
 </body>
 
 </html>
