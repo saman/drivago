@@ -30,10 +30,10 @@ new Vue({
             return parseInt(this.index) + 1;
         },
         question() {
-            var key = Object.keys(this.data.questions)[this.index];
-            this.originalQuestion = this.data.questions[key];
+            // var key = Object.keys(this.data.questions)[this.index];
+            this.originalQuestion = this.data.questions[this.index];
 
-            var question = this.clone(this.originalQuestion)
+            var question = this.clone(this.originalQuestion);
 
 
             question.q = this.chooseOneFromMultiple(question.q);
@@ -67,6 +67,7 @@ new Vue({
         run() {
             this.$http.get('./data/questionnaires.json').then(response => {
                 this.data = response.body.filter(x => x.lan == LANG && x.ver == VER).pop();
+                this.data.questions = Object.values(this.data.questions);
                 this.loaded = true;
             });
             this.userData = this.getUserData();
@@ -87,6 +88,10 @@ new Vue({
         validate() {
             this.validateValue = true
         },
+        jumpToQuestion(index) {
+            this.index = index;
+            this.page = 0;
+        },
         resetValues() {
             this.validateValue = false;
             this.values = {
@@ -97,8 +102,8 @@ new Vue({
         },
         chooseOneFromMultiple(str) {
             str = str.replaceAll('[', '').replaceAll(']', '');
-            str = str.split('|');
-            return this.randomArrayItem(str);
+            arr = str.split('|');
+            return this.randomArrayItem(arr);
         },
         getUserData() {
             return JSON.parse(localStorage.getItem('user-data')) || {};
@@ -121,6 +126,11 @@ new Vue({
     filters: {
         len(obj) {
             return Object.keys(obj).length;
+        },
+        chooseOne(str) {
+            str = str.replaceAll('[', '').replaceAll(']', '');
+            arr = str.split('|');
+            return arr[Math.floor(Math.random() * arr.length)];
         }
     },
     created() {

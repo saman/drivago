@@ -12,13 +12,13 @@ body {
     min-height: calc(100% + env(safe-area-inset-top));
     font-family: 'Airbnb Cereal App';
     touch-action: none;
-    overflow: hidden;
     user-select: none;
     -moz-user-select: none;
     -webkit-user-select: none;
     max-width: 100%;
     background-color: #fff;
     font-size: 1.1rem;
+    overflow: hidden;
 }
 
 header {
@@ -64,12 +64,21 @@ h4 {
 }
 
 .page {
-    overflow-y: scroll;
+    overflow: scroll;
+    max-height: 0px;
     /* margin-top: calc(60px + env(safe-area-inset-top)); */
     margin-bottom: 60px;
     position: relative;
     min-height: 83vh;
     box-sizing: content-box;
+}
+
+.page.list .vs-button__content {
+    text-align: left;
+}
+
+.page.list .content {
+    padding: 10px 20px 30px 20px;
 }
 
 .content {
