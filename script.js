@@ -6,6 +6,7 @@ const MEDIA_URL = './media/';
 new Vue({
     el: '#app',
     data: {
+        page: 0,
         loaded: false,
         userData: {},
         data: {},

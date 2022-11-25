@@ -17,38 +17,62 @@ body {
     -moz-user-select: none;
     -webkit-user-select: none;
     max-width: 100%;
+    background-color: #fff;
+    font-size: 1.1rem;
 }
 
 header {
-    position: fixed;
+    /* position: fixed;
     top: 0;
-    left: 0;
-    background-color: #fafafa;
-    z-index: 999;
+    left: 0; */
+    background-color: #3A6CED;
+    /* z-index: 999; */
     width: 100%;
     padding: env(safe-area-inset-top) env(safe-area-inset-right) 0 env(safe-area-inset-left);
 }
 
-nav {
+header nav {
     padding: 10px;
     text-align: center;
+    color: white;
 }
 
-footer {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    background-color: #fafafa;
-    z-index: 999;
+h4 {
+    display: inline;
+}
+
+.points {
+    display: inline-block;
+    font-weight: normal;
+}
+
+.selectable {
+    user-select: text;
+    -moz-user-select: text;
+    -webkit-user-select: text;
+}
+
+.controls {
     width: 100%;
+    margin-bottom: 1rem;
 }
 
-.action {
-    padding: 10px;
+.page {
+    overflow-y: scroll;
+    /* margin-top: calc(60px + env(safe-area-inset-top)); */
+    margin-bottom: 60px;
+    position: relative;
+    min-height: 83vh;
+    box-sizing: content-box;
 }
 
 .content {
-    overflow-y: scroll;
+    padding: 10px 20px;
+    position: relative;
+}
+
+.answers {
+    margin-top: 20px;
 }
 
 .answer {
@@ -59,14 +83,9 @@ footer {
     float: right;
 }
 
-img {
+img,
+video {
     max-width: 100%;
-}
-
-#app {
-    margin-top: calc(60px + env(safe-area-inset-top));
-    margin-bottom: 60px;
-    padding: 10px 20px;
 }
 
 .green {
@@ -75,6 +94,47 @@ img {
 
 .red {
     color: red;
+}
+
+.question {
+    position: relative;
+    margin: 20px 0 10px 0;
+}
+
+.question .index {
+    opacity: 0.6;
+}
+
+.pre-question {
+    margin-bottom: 20px;
+}
+
+.progress input {
+    display: block;
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: #eee;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+footer {
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    z-index: 99999;
+    background: #fff;
+}
+
+footer nav {
+    border-top: 1px solid #eee;
+    width: 100%;
+    min-height: 10vh;
+}
+
+footer nav .vs-button--icon i {
+    font-size: 1.5rem !important;
 }
 
 
@@ -119,9 +179,6 @@ h4 {
     padding: 0;
 }
 
-.question {
-    margin: 20px 0 10px 0;
-}
 
 .validate {
     background-color: green;

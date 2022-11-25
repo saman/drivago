@@ -30,125 +30,119 @@
             </nav>
 
         </header>
-        <div class="content">
-            {{index + 1}} / {{ data.questions | len }}
-            <!-- <input type="text" v-model="index"> -->
-            <div>
-                <img v-if="question.image" :src="question.image">
-                <video controls v-if="question.video" :src="question.video"></video>
-            </div>
-            <div class="question">
-                <h4 class="selectable">{{question.q}}</h4>
-                <span>{{question.meta_data.p}} points</span>
-            </div>
-            <button class="button" v-if="question.c">Help</button>
-
-            <br>
-            <span v-if="question.pr">{{question.pr}}</span>
-            <div class="grid selectable" v-if="!validateValue">
-                <div class="answer" v-if="question.a1">
-                    <label class="grid">
-                        <vs-row>
-                            <vs-col vs-justify="center" vs-align="right" w="2">
-                                <vs-checkbox v-model="values.a1"></vs-checkbox>
-                            </vs-col>
-                            <vs-col w="10">
-                                {{question.a1}}
-                            </vs-col>
-                        </vs-row>
-                    </label>
-                </div>
-                <div class="answer" v-if="question.a2">
-                    <label class="grid">
-                        <vs-row>
-                            <vs-col w="2">
-                                <vs-checkbox v-model="values.a2"></vs-checkbox>
-                            </vs-col>
-                            <vs-col w="10">
-                                {{question.a2}}
-                            </vs-col>
-                        </vs-row>
-                    </label>
-                </div>
-                <div class="answer" v-if="question.a3">
-                    <label class="grid">
-                        <vs-row>
-                            <vs-col w="2">
-                                <vs-checkbox v-model="values.a3"></vs-checkbox>
-                            </vs-col>
-                            <vs-col w="10">
-                                {{question.a3}}
-                            </vs-col>
-                        </vs-row>
-                    </label>
-                </div>
+        <div class="page" v-if="page == 0">
+            <div class="progress">
+                <!-- <progress :value="index" :max="data.questions | len">
+                {{index + 1}} / {{ data.questions | len }}
+            </progress> -->
+                <input type="range" min="0" :max="data.questions | len" v-model="index" id="slider">
+                <!-- <input type="text" v-model="index"> -->
             </div>
 
-            <div class="grid selectable" v-if="validateValue">
-                <div class="answer" v-if="question.a1">
-                    <label class="grid" :class="{'green': question.v1 == 'x', 'red': !question.v1 && values.a1}">
-                        <vs-row>
-                            <vs-col vs-justify="center" vs-align="right" w="2">
-                                <vs-checkbox v-model="values.a1" disabled></vs-checkbox>
-                            </vs-col>
-                            <vs-col w="10">
-                                {{ question.v1 == undefined || question.v1 == 'x' || question.v1 == '' ? question.a1 : question.v1}}
-                            </vs-col>
-                        </vs-row>
-                    </label>
+            <div class="content">
+                <div>
+                    <img v-if="question.image" :src="question.image">
+                    <video controls v-if="question.video" :src="question.video"></video>
                 </div>
-                <div class="answer" v-if="question.a2">
-                    <label class="grid" :class="{'green': question.v2 == 'x', 'red': !question.v2 && values.a2}"> 
-                        <vs-row>
-                            <vs-col w="2">
-                                <vs-checkbox v-model="values.a2" disabled></vs-checkbox>
-                            </vs-col>
-                            <vs-col w="10">
-                                {{ question.v2 == undefined || question.v2 == 'x' || question.v2 == '' ? question.a2 : question.v2}}
-                            </vs-col>
-                        </vs-row>
-                    </label>
+                <div class="question">
+                    <h4>
+                        <vs-avatar class="points" size="30" circle>{{question.meta_data.p}}</vs-avatar>
+                        <span class="index">{{index}}. </span> <span class="selectable">{{question.q}}</span>
+                    </h4>
                 </div>
-                <div class="answer" v-if="question.a3">
-                    <label class="grid" :class="{'green': question.v3 == 'x', 'red': !question.v3 && values.a3}">
-                        <vs-row>
-                            <vs-col w="2">
-                                <vs-checkbox v-model="values.a3" disabled></vs-checkbox>
-                            </vs-col>
-                            <vs-col w="10">
-                                {{ question.v3 == undefined || question.v3 == 'x' || question.v3 == '' ? question.a3 : question.v3}}
-                            </vs-col>
-                        </vs-row>
-                    </label>
+                <button class="button" v-if="question.c">Help</button>
+                <div class="answers">
+                    <div v-if="question.pr" class="pre-question">
+                        <span>{{question.pr}}:</span>
+                    </div>
+                    <div class="grid selectable" v-if="!validateValue">
+                        <div class="answer" v-if="question.a1">
+                            <label class="grid">
+                            <vs-row>
+                                <vs-col vs-justify="center" vs-align="right" w="2">
+                                    <vs-checkbox v-model="values.a1"></vs-checkbox>
+                                </vs-col>
+                                <vs-col w="10">
+                                    {{question.a1}}
+                                </vs-col>
+                            </vs-row>
+                        </label>
+                        </div>
+                        <div class="answer" v-if="question.a2">
+                            <label class="grid">
+                            <vs-row>
+                                <vs-col w="2">
+                                    <vs-checkbox v-model="values.a2"></vs-checkbox>
+                                </vs-col>
+                                <vs-col w="10">
+                                    {{question.a2}}
+                                </vs-col>
+                            </vs-row>
+                        </label>
+                        </div>
+                        <div class="answer" v-if="question.a3">
+                            <label class="grid">
+                            <vs-row>
+                                <vs-col w="2">
+                                    <vs-checkbox v-model="values.a3"></vs-checkbox>
+                                </vs-col>
+                                <vs-col w="10">
+                                    {{question.a3}}
+                                </vs-col>
+                            </vs-row>
+                        </label>
+                        </div>
+                    </div>
+
+                    <div class="grid selectable" v-if="validateValue">
+                        <div class="answer" v-if="question.a1">
+                            <label class="grid" :class="{'green': question.v1 == 'x', 'red': !question.v1 && values.a1}">
+                            <vs-row>
+                                <vs-col vs-justify="center" vs-align="right" w="2">
+                                    <vs-checkbox v-model="values.a1" disabled></vs-checkbox>
+                                </vs-col>
+                                <vs-col w="10">
+                                    {{ question.v1 == undefined || question.v1 == 'x' || question.v1 == '' ? question.a1 : question.v1}}
+                                </vs-col>
+                            </vs-row>
+                        </label>
+                        </div>
+                        <div class="answer" v-if="question.a2">
+                            <label class="grid" :class="{'green': question.v2 == 'x', 'red': !question.v2 && values.a2}"> 
+                            <vs-row>
+                                <vs-col w="2">
+                                    <vs-checkbox v-model="values.a2" disabled></vs-checkbox>
+                                </vs-col>
+                                <vs-col w="10">
+                                    {{ question.v2 == undefined || question.v2 == 'x' || question.v2 == '' ? question.a2 : question.v2}}
+                                </vs-col>
+                            </vs-row>
+                        </label>
+                        </div>
+                        <div class="answer" v-if="question.a3">
+                            <label class="grid" :class="{'green': question.v3 == 'x', 'red': !question.v3 && values.a3}">
+                            <vs-row>
+                                <vs-col w="2">
+                                    <vs-checkbox v-model="values.a3" disabled></vs-checkbox>
+                                </vs-col>
+                                <vs-col w="10">
+                                    {{ question.v3 == undefined || question.v3 == 'x' || question.v3 == '' ? question.a3 : question.v3}}
+                                </vs-col>
+                            </vs-row>
+                        </label>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <ul v-if="validateValue && false">
-                <li v-if="question.a1">
-                    <label :class="{'green': question.v1 == 'x', 'red': !question.v1 && values.a1}">
-                    <vs-checkbox v-model="values.a1" disabled>
-                    {{ question.v1 == undefined || question.v1 == 'x' || question.v1 == '' ? question.a1 : question.v1}}
-                    </vs-checkbox>
-                </label>
-                </li>
-                <li v-if="question.a2">
-                    <label :class="{'green': question.v2 == 'x', 'red': !question.v2 && values.a2}">
-                    <vs-checkbox v-model="values.a2" disabled>
-                    {{ question.v2 == undefined || question.v2 == 'x' || question.v2 == '' ? question.a2 : question.v2}}
-                </vs-checkbox>
-                </label>
-                </li>
-                <li v-if="question.a3">
-                    <label :class="{'green': question.v3 == 'x', 'red': !question.v3 && values.a3}">
-                    <vs-checkbox v-model="values.a3" disabled>
-                    {{ question.v3 == undefined || question.v3 == 'x' || question.v3 == '' ? question.a3 : question.v3}}
-                </vs-checkbox>
-                </label>
-                </li>
-            </ul>
         </div>
-        <footer class="grid center">
-            <div class="action">
+        <div class="page" v-if="page == 3">
+            <vs-button @click="location.reload()">
+                <i class="bx bx-refresh"></i> Reload
+            </vs-button>
+        </div>
+        <footer>
+            <div v-if="page == 0" class="grid controls">
                 <vs-row justify="center">
                     <vs-button-group>
                         <vs-button block icon relief size="xl" @click="prevQuestion">
@@ -167,13 +161,40 @@
                     </vs-button-group>
                 </vs-row>
             </div>
+            <nav class="center grid">
+                <vs-row>
+                    <vs-col vs-type="flex" vs-justify="center" vs-align="center" w="3">
+                        <vs-button :active="page == 0" relief icon block square transparent size="xl" @click="page = 0">
+                            <i class="bx bx-detail"></i>
+                        </vs-button>
+                    </vs-col>
 
+                    <vs-col vs-type="flex" vs-justify="center" vs-align="center" w="3">
+                        <vs-button :active="page == 1" relief icon block square transparent size="xl" @click="page = 1">
+                            <i class="bx bxs-heart"></i>
+                        </vs-button>
+                    </vs-col>
 
-            <div class="hide">
-                <pre>{{originalQuestion | json}}</pre>
-                <pre>{{question | json}}</pre>
-            </div>
+                    <vs-col vs-type="flex" vs-justify="center" vs-align="center" w="3">
+                        <vs-button :active="page == 2" relief icon block square transparent size="xl" @click="page = 2">
+                            <i class="bx bx-list-ul"></i>
+                        </vs-button>
+                    </vs-col>
+
+                    <vs-col vs-type="flex" vs-justify="center" vs-align="center" w="3">
+                        <vs-button :active="page == 3" relief icon block square transparent size="xl" @click="page = 3">
+                            <i class="bx bxs-cog"></i>
+                        </vs-button>
+                    </vs-col>
+                </vs-row>
+            </nav>
         </footer>
+    </div>
+
+    <div class="hide">
+        <pre>{{originalQuestion | json}}</pre>
+        <pre>{{question | json}}</pre>
+    </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.3.4"></script>
