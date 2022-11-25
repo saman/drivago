@@ -4,99 +4,180 @@
 <head>
     <meta charset="UTF-8">
     <title>Drivago</title>
+    <link rel="stylesheet" href="./fonts/style.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <link rel="stylesheet" href="https://unpkg.com/modern-css-reset/dist/reset.min.css" />
-    <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link href="https://unpkg.com/vuesax@4.0.1-alpha.16/dist/vuesax.min.css" rel="stylesheet">
     <link class="refresh" rel="stylesheet" href="./style.css">
-    <link rel="stylesheet" href="./fonts/style.css">
     <link rel="manifest" href="./manifest.json" />
     <link rel="apple-touch-icon" href="app.png">
     <meta name="viewport" content="width=device-width; initial-scale=1; viewport-fit=cover">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+
 
 </head>
 
 <body>
     <div id="app" v-if="loaded">
-        <nav>
-            <ul>
-                <li><a href="#" class="secondary"><i class="fas fa-globe-europe"></i></a></li>
-            </ul>
-            <ul>
-                <li><strong>Drivago</strong></li>
-            </ul>
-            <ul>
-                <li><a href="#" class="secondary"><i class="fas fa-envelope"></i></a></li>
-            </ul>
-        </nav>
-        {{index + 1}} / {{ data.questions | len }}
-        <!-- <input type="text" v-model="index"> -->
-        <div class="grid">
-            <button class="button" @click="prevQuestion" class="">Previous</button>
-            <button class="button" @click="nextQuestion">Next</button>
-        </div>
-        <div>
-            <img v-if="question.image" :src="question.image">
-            <video controls v-if="question.video" :src="question.video"></video>
-        </div>
-        <div class="question">
-            <h4>{{question.q}}</h4>
-            <span>{{question.meta_data.p}} points</span>
-        </div>
-        <button class="button" v-if="question.c">Help</button>
+        <header class="grid center">
 
-        <br>
-        <span v-if="question.pr">{{question.pr}}</span>
-        <ul v-if="!validateValue">
-            <li v-if="question.a1">
-                <label>
-                    <input v-model="values.a1" type="checkbox" name="a1">
-                    {{question.a1}}
-                </label>
-            </li>
-            <li v-if="question.a2">
-                <label>
-                    <input v-model="values.a2" type="checkbox" name="a2">
-                    {{question.a2}}
-                </label>
-            </li>
-            <li v-if="question.a3">
-                <label>
-                    <input v-model="values.a3" type="checkbox" name="a3" id="a3">
-                    {{question.a3}}
-                </label>
-            </li>
-        </ul>
-        <ul v-if="validateValue">
-            <li v-if="question.a1">
-                <label :class="{'green': question.v1 == 'x', 'red': !question.v1 && values.a1}">
-                    <input v-model="values.a1" disabled type="checkbox" name="a1">
+            <nav>
+                <strong>Drivago</strong>
+            </nav>
+
+        </header>
+        <div class="content">
+            {{index + 1}} / {{ data.questions | len }}
+            <!-- <input type="text" v-model="index"> -->
+            <div>
+                <img v-if="question.image" :src="question.image">
+                <video controls v-if="question.video" :src="question.video"></video>
+            </div>
+            <div class="question">
+                <h4 class="selectable">{{question.q}}</h4>
+                <span>{{question.meta_data.p}} points</span>
+            </div>
+            <button class="button" v-if="question.c">Help</button>
+
+            <br>
+            <span v-if="question.pr">{{question.pr}}</span>
+            <div class="grid selectable" v-if="!validateValue">
+                <div class="answer" v-if="question.a1">
+                    <label class="grid">
+                        <vs-row>
+                            <vs-col vs-justify="center" vs-align="right" w="2">
+                                <vs-checkbox v-model="values.a1"></vs-checkbox>
+                            </vs-col>
+                            <vs-col w="10">
+                                {{question.a1}}
+                            </vs-col>
+                        </vs-row>
+                    </label>
+                </div>
+                <div class="answer" v-if="question.a2">
+                    <label class="grid">
+                        <vs-row>
+                            <vs-col w="2">
+                                <vs-checkbox v-model="values.a2"></vs-checkbox>
+                            </vs-col>
+                            <vs-col w="10">
+                                {{question.a2}}
+                            </vs-col>
+                        </vs-row>
+                    </label>
+                </div>
+                <div class="answer" v-if="question.a3">
+                    <label class="grid">
+                        <vs-row>
+                            <vs-col w="2">
+                                <vs-checkbox v-model="values.a3"></vs-checkbox>
+                            </vs-col>
+                            <vs-col w="10">
+                                {{question.a3}}
+                            </vs-col>
+                        </vs-row>
+                    </label>
+                </div>
+            </div>
+
+            <div class="grid selectable" v-if="validateValue">
+                <div class="answer" v-if="question.a1">
+                    <label class="grid" :class="{'green': question.v1 == 'x', 'red': !question.v1 && values.a1}">
+                        <vs-row>
+                            <vs-col vs-justify="center" vs-align="right" w="2">
+                                <vs-checkbox v-model="values.a1" disabled></vs-checkbox>
+                            </vs-col>
+                            <vs-col w="10">
+                                {{ question.v1 == undefined || question.v1 == 'x' || question.v1 == '' ? question.a1 : question.v1}}
+                            </vs-col>
+                        </vs-row>
+                    </label>
+                </div>
+                <div class="answer" v-if="question.a2">
+                    <label class="grid" :class="{'green': question.v2 == 'x', 'red': !question.v2 && values.a2}"> 
+                        <vs-row>
+                            <vs-col w="2">
+                                <vs-checkbox v-model="values.a2" disabled></vs-checkbox>
+                            </vs-col>
+                            <vs-col w="10">
+                                {{ question.v2 == undefined || question.v2 == 'x' || question.v2 == '' ? question.a2 : question.v2}}
+                            </vs-col>
+                        </vs-row>
+                    </label>
+                </div>
+                <div class="answer" v-if="question.a3">
+                    <label class="grid" :class="{'green': question.v3 == 'x', 'red': !question.v3 && values.a3}">
+                        <vs-row>
+                            <vs-col w="2">
+                                <vs-checkbox v-model="values.a3" disabled></vs-checkbox>
+                            </vs-col>
+                            <vs-col w="10">
+                                {{ question.v3 == undefined || question.v3 == 'x' || question.v3 == '' ? question.a3 : question.v3}}
+                            </vs-col>
+                        </vs-row>
+                    </label>
+                </div>
+            </div>
+
+            <ul v-if="validateValue && false">
+                <li v-if="question.a1">
+                    <label :class="{'green': question.v1 == 'x', 'red': !question.v1 && values.a1}">
+                    <vs-checkbox v-model="values.a1" disabled>
                     {{ question.v1 == undefined || question.v1 == 'x' || question.v1 == '' ? question.a1 : question.v1}}
+                    </vs-checkbox>
                 </label>
-            </li>
-            <li v-if="question.a2">
-                <label :class="{'green': question.v2 == 'x', 'red': !question.v2 && values.a2}">
-                    <input v-model="values.a2" disabled type="checkbox" name="a2">
+                </li>
+                <li v-if="question.a2">
+                    <label :class="{'green': question.v2 == 'x', 'red': !question.v2 && values.a2}">
+                    <vs-checkbox v-model="values.a2" disabled>
                     {{ question.v2 == undefined || question.v2 == 'x' || question.v2 == '' ? question.a2 : question.v2}}
+                </vs-checkbox>
                 </label>
-            </li>
-            <li v-if="question.a3">
-                <label :class="{'green': question.v3 == 'x', 'red': !question.v3 && values.a3}">
-                    <input v-model="values.a3" disabled type="checkbox" name="a3">
+                </li>
+                <li v-if="question.a3">
+                    <label :class="{'green': question.v3 == 'x', 'red': !question.v3 && values.a3}">
+                    <vs-checkbox v-model="values.a3" disabled>
                     {{ question.v3 == undefined || question.v3 == 'x' || question.v3 == '' ? question.a3 : question.v3}}
+                </vs-checkbox>
                 </label>
-            </li>
-        </ul>
-        <button @click="validate" class="button validate">Validate</button>
-        <div class="hide">
-            <pre>{{originalQuestion | json}}</pre>
-            <pre>{{question | json}}</pre>
+                </li>
+            </ul>
         </div>
+        <footer class="grid center">
+            <div class="action">
+                <vs-row justify="center">
+                    <vs-button-group>
+                        <vs-button block icon relief size="xl" @click="prevQuestion">
+                            <i class="bx bx-skip-previous-circle"></i> Previous
+                        </vs-button>
+
+
+                        <vs-button block icon relief success size="xl" @click="validate">
+                            <i class="bx bx-check-circle"></i> Validate
+                        </vs-button>
+
+
+                        <vs-button block icon relief size="xl" @click="nextQuestion">
+                            Next <i class="bx bx-skip-next-circle"></i>
+                        </vs-button>
+                    </vs-button-group>
+                </vs-row>
+            </div>
+
+
+            <div class="hide">
+                <pre>{{originalQuestion | json}}</pre>
+                <pre>{{question | json}}</pre>
+            </div>
+        </footer>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.3.4"></script>
+    <script src="https://unpkg.com/vuesax@4.0.1-alpha.16/dist/vuesax.min.js"></script>
     <script class="refresh" src="./script.js"></script>
     <script>
         (function() {

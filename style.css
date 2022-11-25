@@ -1,14 +1,113 @@
-html {
-    min-height: calc(100% + env(safe-area-inset-top));
-    padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+.hide {
+    display: none;
+}
+
+ul li {
+    list-style: none;
+    padding: 0;
+    margin: 0;
 }
 
 body {
+    min-height: calc(100% + env(safe-area-inset-top));
     font-family: 'Airbnb Cereal App';
+    touch-action: none;
+    overflow: hidden;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    max-width: 100%;
 }
 
-.hide {
-    display: none;
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: azure;
+    z-index: 999;
+    width: 100%;
+    padding: env(safe-area-inset-top) env(safe-area-inset-right) 0 env(safe-area-inset-left);
+}
+
+nav {
+    padding: 10px;
+    text-align: center;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    background-color: azure;
+    z-index: 999;
+    width: 100%;
+}
+
+.action {
+    padding: 10px;
+}
+
+.content {
+    overflow-y: scroll;
+}
+
+.answer {
+    margin-bottom: 20px;
+}
+
+.vs-checkbox-content {
+    float: right;
+}
+
+img {
+    max-width: 100%;
+}
+
+#app {
+    margin-top: calc(60px + env(safe-area-inset-top));
+    margin-bottom: 60px;
+    padding: 10px 20px;
+}
+
+.green {
+    color: green;
+}
+
+.red {
+    color: red;
+}
+
+
+/* body {
+    min-height: calc(100% + env(safe-area-inset-top));
+    font-family: 'Airbnb Cereal App';
+    touch-action: none;
+    overflow: auto;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+}
+
+.header {
+    margin: 0;
+    padding: env(safe-area-inset-top) env(safe-area-inset-right) 0 env(safe-area-inset-left);
+    background-color: darkcyan;
+}
+
+nav {
+    margin: 0;
+    padding: 0 15px 5px;
+    user-select: none;
+}
+
+nav * {
+    color: white !important;
+}
+
+.selectable {
+    user-select: text;
+    -moz-user-select: text;
+    -webkit-user-select: text;
 }
 
 #app {
@@ -28,9 +127,7 @@ h4 {
     background-color: green;
 }
 
-ul li {
-    list-style: none;
-}
+
 
 .green {
     color: green;
@@ -42,4 +139,4 @@ ul li {
 
 input[disabled] {
     background-color: gray;
-}
+} */
