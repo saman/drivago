@@ -136,6 +136,7 @@
             </div>
 
         </div>
+        <div class="page" :class="{ hide: page !== 1}"></div>
         <div class="page selectable list" :class="{ hide: page !== 2}">
             <div class="content">
                 <div class="q" v-for="(q, i) in data.questions" :key="i">

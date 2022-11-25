@@ -89,6 +89,7 @@ new Vue({
             this.validateValue = true
         },
         jumpToQuestion(index) {
+            this.resetValues();
             this.index = index;
             this.page = 0;
         },
