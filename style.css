@@ -54,7 +54,11 @@ h4 {
 
 .controls {
     width: 100%;
-    margin-bottom: 1rem;
+    padding: 1rem;
+}
+
+.vs-button-group {
+    width: 100%;
 }
 
 .page {

@@ -12,7 +12,7 @@
     <link class="refresh" rel="stylesheet" href="./style.css">
     <link rel="manifest" href="./manifest.json" />
     <link rel="apple-touch-icon" href="app.png">
-    <meta name="viewport" content="width=device-width; initial-scale=1; viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -35,7 +35,7 @@
                 <!-- <progress :value="index" :max="data.questions | len">
                 {{index + 1}} / {{ data.questions | len }}
             </progress> -->
-                <input type="range" min="0" :max="data.questions | len" v-model="index" id="slider">
+                <input type="range" min="0" :max="data.questions | len" v-model="index">
                 <!-- <input type="text" v-model="index"> -->
             </div>
 
@@ -46,9 +46,10 @@
                 </div>
                 <div class="question">
                     <h4>
-                        <vs-avatar class="points" size="30" circle>{{question.meta_data.p}}</vs-avatar>
-                        <span class="index">{{index}}. </span> <span class="selectable">{{question.q}}</span>
+
+                        <span class="index">{{questionNumber}}. </span> <span class="selectable">{{question.q}}</span>
                     </h4>
+                    <vs-avatar class="points" size="30" circle>{{question.meta_data.p}}</vs-avatar>
                 </div>
                 <button class="button" v-if="question.c">Help</button>
                 <div class="answers">
@@ -139,6 +140,10 @@
         <div class="page" v-if="page == 3">
             <vs-button @click="location.reload()">
                 <i class="bx bx-refresh"></i> Reload
+            </vs-button>
+
+            <vs-button @click="resetUserData()">
+                <i class="bx bxs-user-x"></i> Reset User Data
             </vs-button>
         </div>
         <footer>

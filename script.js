@@ -26,6 +26,9 @@ new Vue({
         }
     },
     computed: {
+        questionNumber() {
+            return parseInt(this.index) + 1;
+        },
         question() {
             var key = Object.keys(this.data.questions)[this.index];
             this.originalQuestion = this.data.questions[key];
@@ -70,12 +73,16 @@ new Vue({
             this.index = this.userData.index || 0;
         },
         nextQuestion() {
-            this.resetValues();
-            this.index++;
+            if (this.index < Object.keys(this.data.questions).length) {
+                this.resetValues();
+                this.index++;
+            }
         },
         prevQuestion() {
-            this.resetValues();
-            this.index--;
+            if (this.index > 0) {
+                this.resetValues();
+                this.index--;
+            }
         },
         validate() {
             this.validateValue = true
@@ -98,6 +105,11 @@ new Vue({
         },
         setUserData() {
             localStorage.setItem('user-data', JSON.stringify(this.userData));
+        },
+        resetUserData() {
+            this.userData = {};
+            this.setUserData();
+            location.reload();
         },
         randomArrayItem(arr) {
             return arr[Math.floor(Math.random() * arr.length)];
