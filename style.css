@@ -37,8 +37,10 @@ header nav {
     color: white;
 }
 
+h3,
 h4 {
     display: inline;
+    font-weight: 500;
 }
 
 .points {
@@ -105,8 +107,8 @@ video {
     margin: 20px 0 10px 0;
 }
 
-.question .index {
-    opacity: 0.6;
+.question .question-number {
+    opacity: 0.3;
 }
 
 .pre-question {

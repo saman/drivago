@@ -45,10 +45,9 @@
                     <video controls v-if="question.video" :src="question.video"></video>
                 </div>
                 <div class="question">
-                    <h4>
-
-                        <span class="index">{{questionNumber}}. </span> <span class="selectable">{{question.q}}</span>
-                    </h4>
+                    <h3>
+                        <span class="question-number">{{questionNumber}}. </span> <span class="selectable">{{question.q}}</span>
+                    </h3>
                     <vs-avatar class="points" size="30" circle>{{question.meta_data.p}}</vs-avatar>
                 </div>
                 <button class="button" v-if="question.c">Help</button>
