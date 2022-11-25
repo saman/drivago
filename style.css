@@ -17,7 +17,7 @@ body {
     -webkit-user-select: none;
     max-width: 100%;
     background-color: #fff;
-    font-size: 1.1rem;
+    font-size: 1.05rem;
     overflow: hidden;
 }
 
@@ -77,12 +77,8 @@ h4 {
     text-align: left;
 }
 
-.page.list .content {
-    padding: 10px 20px 30px 20px;
-}
-
 .content {
-    padding: 10px 20px;
+    padding: 10px 20px 40px 20px;
     position: relative;
 }
 
@@ -145,7 +141,17 @@ footer {
 footer nav {
     border-top: 1px solid #eee;
     width: 100%;
-    min-height: 10vh;
+    min-height: 8vh;
+}
+
+footer nav .vs-button {
+    color: #aaa !important;
+    background: none !important;
+}
+
+footer nav .vs-button--active {
+    color: rgba(25, 91, 255, 1) !important;
+    background: none !important;
 }
 
 footer nav .vs-button--icon i {
