@@ -109,7 +109,7 @@ new Vue({
         checkAnswer(userAnswer, correctAnswer) {
             if (userAnswer) {
                 if (correctAnswer == 'x') {
-                    return true
+                    return true;
                 }
                 return false;
             }
