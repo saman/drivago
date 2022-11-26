@@ -17,10 +17,12 @@ new Vue({
             a2: false,
             a3: false
         },
+        answer: {},
         originalQuestion: {},
     },
     watch: {
         index() {
+            this.resetValues();
             this.userData.index = this.index;
             this.setUserData();
         }
@@ -75,31 +77,43 @@ new Vue({
         },
         nextQuestion() {
             if (this.index < Object.keys(this.data.questions).length) {
-                this.resetValues();
                 this.index++;
             }
         },
         prevQuestion() {
             if (this.index > 0) {
-                this.resetValues();
                 this.index--;
             }
         },
         validate() {
+            this.answer = {
+                a1: this.checkAnswer(this.values.a1, this.question.v1),
+                a2: this.checkAnswer(this.values.a2, this.question.v2),
+                a3: this.checkAnswer(this.values.a2, this.question.v3),
+            }
             this.validateValue = true
         },
         jumpToQuestion(index) {
-            this.resetValues();
             this.index = index;
             this.page = 0;
         },
         resetValues() {
             this.validateValue = false;
+            this.answer = {};
             this.values = {
                 a1: false,
                 a2: false,
                 a3: false
             };
+        },
+        checkAnswer(userAnswer, correctAnswer) {
+            if (userAnswer) {
+                if (correctAnswer == 'x') {
+                    return true
+                }
+                return false;
+            }
+            return correctAnswer == 'x';
         },
         chooseOneFromMultiple(str) {
             str = str.replaceAll('[', '').replaceAll(']', '');

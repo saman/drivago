@@ -55,12 +55,12 @@
                     <div v-if="question.pr" class="pre-question">
                         <span>{{question.pr}}:</span>
                     </div>
-                    <div class="grid selectable" v-if="!validateValue">
+                    <div class="grid selectable" :class="{ hide: validateValue}">
                         <div class="answer" v-if="question.a1">
                             <label class="grid">
                                 <vs-row>
                                     <vs-col vs-justify="center" vs-align="right" w="2">
-                                        <vs-checkbox v-model="values.a1"></vs-checkbox>
+                                        <vs-checkbox class="test" v-model="values.a1"></vs-checkbox>
                                     </vs-col>
                                     <vs-col w="10">
                                         {{question.a1}}
@@ -72,7 +72,7 @@
                             <label class="grid">
                                 <vs-row>
                                     <vs-col w="2">
-                                        <vs-checkbox v-model="values.a2"></vs-checkbox>
+                                        <vs-checkbox class="test" v-model="values.a2"></vs-checkbox>
                                     </vs-col>
                                     <vs-col w="10">
                                         {{question.a2}}
@@ -84,7 +84,7 @@
                             <label class="grid">
                                 <vs-row>
                                     <vs-col w="2">
-                                        <vs-checkbox v-model="values.a3"></vs-checkbox>
+                                        <vs-checkbox class="test" v-model="values.a3"></vs-checkbox>
                                     </vs-col>
                                     <vs-col w="10">
                                         {{question.a3}}
@@ -94,12 +94,12 @@
                         </div>
                     </div>
 
-                    <div class="grid selectable" v-if="validateValue">
+                    <div class="grid selectable" :class="{ hide: !validateValue}">
                         <div class="answer" v-if="question.a1">
                             <label class="grid" :class="{'green': question.v1 == 'x', 'red': !question.v1 && values.a1}">
                                 <vs-row>
                                     <vs-col vs-justify="center" vs-align="right" w="2">
-                                        <vs-checkbox :success="question.v1 == 'x'" :danger="!question.v1 && values.a1" v-model="values.a1" disabled></vs-checkbox>
+                                        <vs-checkbox :success="answer.a1" :danger="!answer.a1" v-model="values.a1" disabled></vs-checkbox>
                                     </vs-col>
                                     <vs-col w="10">
                                         {{ question.v1 == undefined || question.v1 == 'x' || question.v1 == '' ? question.a1 : question.v1}}
@@ -111,7 +111,7 @@
                             <label class="grid" :class="{'green': question.v2 == 'x', 'red': !question.v2 && values.a2}"> 
                                 <vs-row>
                                     <vs-col w="2">
-                                        <vs-checkbox :success="question.v2 == 'x'" :danger="!question.v2 && values.a2" v-model="values.a2" disabled></vs-checkbox>
+                                        <vs-checkbox :success="answer.a2" :danger="!answer.a2" v-model="values.a2" disabled></vs-checkbox>
                                     </vs-col>
                                     <vs-col w="10">
                                         {{ question.v2 == undefined || question.v2 == 'x' || question.v2 == '' ? question.a2 : question.v2}}
@@ -123,7 +123,7 @@
                             <label class="grid" :class="{'green': question.v3 == 'x', 'red': !question.v3 && values.a3}">
                                 <vs-row>
                                     <vs-col w="2">
-                                        <vs-checkbox :success="question.v3 == 'x'" :danger="!question.v3 && values.a3" v-model="values.a3" disabled></vs-checkbox>
+                                        <vs-checkbox :success="answer.a3" :danger="!answer.a3" v-model="values.a3" disabled></vs-checkbox>
                                     </vs-col>
                                     <vs-col w="10">
                                         {{ question.v3 == undefined || question.v3 == 'x' || question.v3 == '' ? question.a3 : question.v3}}
@@ -132,6 +132,7 @@
                             </label>
                         </div>
                     </div>
+
                 </div>
             </div>
 
