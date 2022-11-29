@@ -97,14 +97,15 @@ h4 {
 img,
 video {
     max-width: 100%;
+    border-radius: 5px;
 }
 
 .green {
-    color: green;
+    color: rgb(23, 201, 100);
 }
 
 .red {
-    color: red;
+    color: rgb(242, 19, 93);
 }
 
 .question {
@@ -161,6 +162,10 @@ footer nav .vs-button--icon i {
 
 footer nav .vs-button--block {
     width: 90%;
+}
+
+.validate i {
+    font-size: 1.2rem !important;
 }
 
 

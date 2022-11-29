@@ -93,9 +93,23 @@ new Vue({
             }
             this.validateValue = true
         },
+        bookmark() {
+            if (this.userData.bookmarks === undefined) {
+                this.userData.bookmarks = [];
+            }
+
+            if (!this.userData.bookmarks.includes(this.question.id)) {
+                this.userData.bookmarks.push(this.question.id);
+            }
+
+            this.setUserData();
+        },
         jumpToQuestion(index) {
             this.index = index;
             this.page = 0;
+        },
+        isQuestionBookmarked(id) {
+            return this.userData.bookmarks.includes(id);
         },
         resetValues() {
             this.validateValue = false;
