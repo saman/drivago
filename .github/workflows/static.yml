@@ -30,6 +30,13 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+      - name: Cache
+        uses: actions/cache@v3.0.11
+        with:
+          # A list of files, directories, and wildcard patterns to cache and restore
+          path: './media'
+          # An explicit key for restoring and saving the cache
+          key: media        
       - name: Setup Pages
         uses: actions/configure-pages@v2
       - name: Upload artifact
@@ -40,11 +47,5 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1
-      - name: Cache
-        uses: actions/cache@v3.0.11
-        with:
-          # A list of files, directories, and wildcard patterns to cache and restore
-          path: './media'
-          # An explicit key for restoring and saving the cache
-          key: media      
+    
         
