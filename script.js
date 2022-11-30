@@ -109,7 +109,7 @@ new Vue({
             this.page = 0;
         },
         isQuestionBookmarked(id) {
-            return this.userData.bookmarks.includes(id);
+            return this.userData.bookmarks ? this.userData.bookmarks.includes(id) : false;
         },
         resetValues() {
             this.validateValue = false;
