@@ -93,13 +93,16 @@ new Vue({
             }
             this.validateValue = true
         },
-        bookmark() {
+        toggleBookmark() {
             if (this.userData.bookmarks === undefined) {
                 this.userData.bookmarks = [];
             }
 
-            if (!this.userData.bookmarks.includes(this.question.id)) {
+            let indexQuestion = this.userData.bookmarks.indexOf(this.question.id);
+            if (indexQuestion === -1) {
                 this.userData.bookmarks.push(this.question.id);
+            } else {
+                this.userData.bookmarks.splice(indexQuestion, 1);
             }
 
             this.setUserData();

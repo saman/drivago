@@ -162,7 +162,7 @@
                             <i class='bx bx-chevron-left'></i>
                         </vs-button>
 
-                        <vs-button block icon relief danger size="xl" @click="bookmark">
+                        <vs-button block icon relief danger size="xl" @click="toggleBookmark">
                             <i class='bx bx-heart' v-if="!this.isQuestionBookmarked(question.id)"></i>
                             <i class='bx bxs-heart' v-if="this.isQuestionBookmarked(question.id)"></i>
                         </vs-button>
