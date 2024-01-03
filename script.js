@@ -8,9 +8,11 @@ new Vue({
     data: {
         page: 0,
         loaded: false,
+        hintDialog: false,
         userData: {},
         data: {},
         index: 0,
+        progress: 0,
         validateValue: false,
         values: {
             a1: false,
@@ -25,6 +27,9 @@ new Vue({
             this.resetValues();
             this.userData.index = this.index;
             this.setUserData();
+        },
+        loaded() {
+            this.progress = this.calculateProgress();
         }
     },
     computed: {
@@ -67,13 +72,14 @@ new Vue({
     },
     methods: {
         run() {
+            this.userData = this.getUserData();
+            this.index = this.userData.index || 0;
+
             this.$http.get('./data/questionnaires.json').then(response => {
                 this.data = response.body.filter(x => x.lan == LANG && x.ver == VER).pop();
                 this.data.questions = Object.values(this.data.questions);
                 this.loaded = true;
             });
-            this.userData = this.getUserData();
-            this.index = this.userData.index || 0;
         },
         nextQuestion() {
             if (this.index < Object.keys(this.data.questions).length) {
@@ -92,6 +98,13 @@ new Vue({
                 a3: this.checkAnswer(this.values.a2, this.question.v3),
             }
             this.validateValue = true
+
+            if (this.userData.answers === undefined) {
+                this.userData.answers = {};
+            }
+            this.userData.answers[this.index] = [this.values.a1, this.values.a2, this.values.a3]
+            this.progress = this.calculateProgress();
+            this.setUserData();
         },
         toggleBookmark() {
             if (this.userData.bookmarks === undefined) {
@@ -137,6 +150,14 @@ new Vue({
             arr = str.split('|');
             return this.randomArrayItem(arr);
         },
+        calculateProgress() {
+            let totalAnswsered = 0;
+            if (this.userData.answers !== undefined) {
+                totalAnswsered = Object.keys(this.userData.answers).length;
+            }
+            console.log(totalAnswsered);
+            return totalAnswsered / (this.data.questions.length - 1)
+        },
         getUserData() {
             return JSON.parse(localStorage.getItem('user-data')) || {};
         },
@@ -163,6 +184,9 @@ new Vue({
             str = str.replaceAll('[', '').replaceAll(']', '');
             arr = str.split('|');
             return arr[Math.floor(Math.random() * arr.length)];
+        },
+        percentage(num) {
+            return Number(Math.ceil(num * 10000) / 100).toFixed(2) + '%';
         }
     },
     created() {

@@ -5,20 +5,20 @@
     <meta charset="UTF-8">
     <title>Drivago</title>
     <link rel="stylesheet" href="./fonts/style.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+        integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <link rel="stylesheet" href="https://unpkg.com/modern-css-reset/dist/reset.min.css" />
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link href="https://unpkg.com/vuesax@4.0.1-alpha.16/dist/vuesax.min.css" rel="stylesheet">
     <link class="refresh" rel="stylesheet" href="./style.css">
     <link rel="manifest" href="./manifest.json" />
     <link rel="apple-touch-icon" href="app.png">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta content="yes" name="apple-mobile-web-app-capable" />
-
-
 </head>
 
 <body>
@@ -30,7 +30,8 @@
         </header>
         <div class="page questions" :class="{ hide: page !== 0}">
             <div class="progress">
-                <input type="range" min="0" :max="data.questions.length - 1" v-model="index">
+                <progress :value="progress" max="1"></progress>
+                <span class="progress-value">{{ progress | percentage }}</span>
             </div>
 
             <div class="content">
@@ -42,9 +43,28 @@
                 </div>
                 <div class="question">
                     <h3>
-                        <span class="question-number">{{questionNumber}}. </span> <span class="selectable">{{question.q}}</span>
+                        <span class="question-number">{{questionNumber}}. </span> <span
+                            class="selectable">{{question.q}}</span>
                     </h3>
                     <vs-avatar class="points" size="25" circle>{{question.meta_data.p}}</vs-avatar>
+                    <span class="points selectable"></span>
+                    <vs-dialog width="550px" not-center v-model="hintDialog">
+                        <template #header>
+                            <h4 class="not-margin">
+                                Hint
+                            </h4>
+                        </template>
+
+                        <div class="con-content">
+                            <p>
+                                {{question.meta_data.a}}
+                            </p>
+                            <p>
+                                {{question.c}}
+                            </p>
+                        </div>
+
+                    </vs-dialog>
                 </div>
                 <button class="button" v-if="question.c">Help</button>
                 <div class="answers">
@@ -92,37 +112,46 @@
 
                     <div class="grid selectable" :class="{ hide: !validateValue}">
                         <div class="answer" v-if="question.a1">
-                            <label class="grid" :class="{'green': question.v1 == 'x', 'red': !question.v1 && values.a1}">
+                            <label class="grid"
+                                :class="{'green': question.v1 == 'x', 'red': !question.v1 && values.a1}">
                                 <vs-row>
                                     <vs-col vs-justify="center" vs-align="right" w="2">
-                                        <vs-checkbox :success="answer.a1" :danger="!answer.a1" v-model="values.a1" disabled></vs-checkbox>
+                                        <vs-checkbox :success="answer.a1" :danger="!answer.a1" v-model="values.a1"
+                                            disabled></vs-checkbox>
                                     </vs-col>
                                     <vs-col w="10">
-                                        {{ question.v1 == undefined || question.v1 == 'x' || question.v1 == '' ? question.a1 : question.v1}}
+                                        {{ question.v1 == undefined || question.v1 == 'x' || question.v1 == '' ?
+                                        question.a1 : question.v1}}
                                     </vs-col>
                                 </vs-row>
                             </label>
                         </div>
                         <div class="answer" v-if="question.a2">
-                            <label class="grid" :class="{'green': question.v2 == 'x', 'red': !question.v2 && values.a2}"> 
+                            <label class="grid"
+                                :class="{'green': question.v2 == 'x', 'red': !question.v2 && values.a2}">
                                 <vs-row>
                                     <vs-col w="2">
-                                        <vs-checkbox :success="answer.a2" :danger="!answer.a2" v-model="values.a2" disabled></vs-checkbox>
+                                        <vs-checkbox :success="answer.a2" :danger="!answer.a2" v-model="values.a2"
+                                            disabled></vs-checkbox>
                                     </vs-col>
                                     <vs-col w="10">
-                                        {{ question.v2 == undefined || question.v2 == 'x' || question.v2 == '' ? question.a2 : question.v2}}
+                                        {{ question.v2 == undefined || question.v2 == 'x' || question.v2 == '' ?
+                                        question.a2 : question.v2}}
                                     </vs-col>
                                 </vs-row>
                             </label>
                         </div>
                         <div class="answer" v-if="question.a3">
-                            <label class="grid" :class="{'green': question.v3 == 'x', 'red': !question.v3 && values.a3}">
+                            <label class="grid"
+                                :class="{'green': question.v3 == 'x', 'red': !question.v3 && values.a3}">
                                 <vs-row>
                                     <vs-col w="2">
-                                        <vs-checkbox :success="answer.a3" :danger="!answer.a3" v-model="values.a3" disabled></vs-checkbox>
+                                        <vs-checkbox :success="answer.a3" :danger="!answer.a3" v-model="values.a3"
+                                            disabled></vs-checkbox>
                                     </vs-col>
                                     <vs-col w="10">
-                                        {{ question.v3 == undefined || question.v3 == 'x' || question.v3 == '' ? question.a3 : question.v3}}
+                                        {{ question.v3 == undefined || question.v3 == 'x' || question.v3 == '' ?
+                                        question.a3 : question.v3}}
                                     </vs-col>
                                 </vs-row>
                             </label>
@@ -144,22 +173,38 @@
             </div>
         </div>
         <div class="page" :class="{ hide: page !== 3}">
-            <div class="content">
-                <vs-button @click="location.reload()">
-                    <i class="bx bx-refresh"></i> Reload
-                </vs-button>
+            <vs-row justify="center">
+                <vs-col w="12">
+                    <div class="content">
+                        <vs-button block @click="location.reload()">
+                            <i class="bx bx-refresh"></i> Reload
+                        </vs-button>
 
-                <vs-button @click="resetUserData()">
-                    <i class="bx bxs-user-x"></i> Reset User Data
-                </vs-button>
-            </div>
+                        <vs-button block @click="resetUserData()">
+                            <i class="bx bxs-user-x"></i> Reset User Data
+                        </vs-button>
+                    </div>
+                </vs-col>
+            </vs-row>
         </div>
         <footer>
             <div v-if="page == 0" class="grid controls">
                 <vs-row justify="center">
+                    <vs-col w="12">
+                        <div class="progress">
+                            <input type="range" min="0" :max="data.questions.length - 1" v-model="index">
+                        </div>
+                    </vs-col>
+                </vs-row>
+                <vs-row justify="center">
                     <vs-button-group>
                         <vs-button block icon relief size="xl" @click="prevQuestion">
                             <i class='bx bx-chevron-left'></i>
+                        </vs-button>
+
+                        <vs-button block icon relief color="twitter" size="xl" @click="hintDialog=true">
+                            <i class='bx bx-info-circle' v-if="!question.c"></i>
+                            <i class='bx bxs-info-circle' v-if="question.c"></i>
                         </vs-button>
 
                         <vs-button block icon relief danger size="xl" @click="toggleBookmark">
@@ -218,7 +263,7 @@
     <script src="https://unpkg.com/vuesax@4.0.1-alpha.16/dist/vuesax.min.js"></script>
     <script class="refresh" src="./script.js"></script>
     <script>
-        (function() {
+        (function () {
             var h, a, f;
             a = document.getElementsByClassName("refresh")
             for (h = 0; h < a.length; h++) {
