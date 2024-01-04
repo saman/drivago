@@ -13,6 +13,8 @@ new Vue({
         data: {},
         index: 0,
         progress: 0,
+        autoNextQuestion: false,
+        loadingAutoNextQuestion: false,
         validateValue: false,
         values: {
             a1: false,
@@ -28,8 +30,9 @@ new Vue({
             this.userData.index = this.index;
             this.setUserData();
         },
-        loaded() {
-            this.progress = this.calculateProgress();
+        autoNextQuestion() {
+            this.userData.autoNextQuestion = this.autoNextQuestion;
+            this.setUserData();
         }
     },
     computed: {
@@ -74,6 +77,8 @@ new Vue({
         run() {
             this.userData = this.getUserData();
             this.index = this.userData.index || 0;
+            this.progress = this.userData.progress || 0;
+            this.autoNextQuestion = this.userData.autoNextQuestion || false;
 
             this.$http.get('./data/questionnaires.json').then(response => {
                 this.data = response.body.filter(x => x.lan == LANG && x.ver == VER).pop();
@@ -95,25 +100,37 @@ new Vue({
             this.answer = {
                 a1: this.checkAnswer(this.values.a1, this.question.v1),
                 a2: this.checkAnswer(this.values.a2, this.question.v2),
-                a3: this.checkAnswer(this.values.a2, this.question.v3),
+                a3: this.checkAnswer(this.values.a3, this.question.v3),
             }
             this.validateValue = true
+            this.storeAnswer();
 
+            if (this.isCorrectAnswer(this.question.id) && this.autoNextQuestion) {
+                this.loadingAutoNextQuestion = true;
+                setTimeout(() => {
+                    this.nextQuestion();
+                    this.loadingAutoNextQuestion = false;
+                }, 250);
+            }
+        },
+        storeAnswer() {
             if (this.userData.answers === undefined) {
                 this.userData.answers = {};
             }
-            this.userData.answers[this.index] = [this.values.a1, this.values.a2, this.values.a3]
-            this.progress = this.calculateProgress();
+
+            this.userData.answers[this.question.id] = this.answer.a1 && this.answer.a2 && this.answer.a3;
+
+            this.progress = this.userData.progress = this.calculateProgress();
             this.setUserData();
         },
-        toggleBookmark() {
+        toggleBookmark(id) {
             if (this.userData.bookmarks === undefined) {
                 this.userData.bookmarks = [];
             }
 
-            let indexQuestion = this.userData.bookmarks.indexOf(this.question.id);
+            let indexQuestion = this.userData.bookmarks.indexOf(id);
             if (indexQuestion === -1) {
-                this.userData.bookmarks.push(this.question.id);
+                this.userData.bookmarks.push(id);
             } else {
                 this.userData.bookmarks.splice(indexQuestion, 1);
             }
@@ -126,6 +143,12 @@ new Vue({
         },
         isQuestionBookmarked(id) {
             return this.userData.bookmarks ? this.userData.bookmarks.includes(id) : false;
+        },
+        isWrongAnswer(id) {
+            return this.userData.answers ? this.userData.answers[id] == false : false;
+        },
+        isCorrectAnswer(id) {
+            return this.userData.answers ? this.userData.answers[id] == true : false;
         },
         resetValues() {
             this.validateValue = false;
@@ -143,7 +166,7 @@ new Vue({
                 }
                 return false;
             }
-            return correctAnswer == 'x';
+            return correctAnswer != 'x';
         },
         chooseOneFromMultiple(str) {
             str = str.replaceAll('[', '').replaceAll(']', '');
@@ -155,7 +178,6 @@ new Vue({
             if (this.userData.answers !== undefined) {
                 totalAnswsered = Object.keys(this.userData.answers).length;
             }
-            console.log(totalAnswsered);
             return totalAnswsered / (this.data.questions.length - 1)
         },
         getUserData() {

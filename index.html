@@ -46,7 +46,8 @@
                         <span class="question-number">{{questionNumber}}. </span> <span
                             class="selectable">{{question.q}}</span>
                     </h3>
-                    <vs-avatar class="points" size="25" circle>{{question.meta_data.p}}</vs-avatar>
+                    <vs-avatar @click="hintDialog=true" class="points" size="25"
+                        circle>{{question.meta_data.p}}</vs-avatar>
                     <span class="points selectable"></span>
                     <vs-dialog width="550px" not-center v-model="hintDialog">
                         <template #header>
@@ -164,18 +165,50 @@
         </div>
         <div class="page" :class="{ hide: page !== 1}"></div>
         <div class="page selectable list" :class="{ hide: page !== 2}">
-            <div class="content">
-                <div class="q" v-for="(q, i) in data.questions" :key="i">
-                    <vs-button icon flat transparent @click="jumpToQuestion(i)" :danger="isQuestionBookmarked(q.id)">
-                        {{i + 1}}. {{q.q | chooseOne}}
-                    </vs-button>
+            
+                <div class="q grid" v-for="(q, i) in data.questions" :key="i">
+                    <vs-row align="center" justify="center">
+                        <vs-col w="1">
+                            <vs-button icon transparent danger size="xxl" @click="toggleBookmark(q.id)">
+                                <i color="danger" class='bx bx-heart' v-if="!isQuestionBookmarked(q.id)"></i>
+                                <i color="danger" class='bx bxs-heart' v-if="isQuestionBookmarked(q.id)"></i>
+                            </vs-button>
+                        </vs-col>
+                        <vs-col w="11">
+                            <vs-button icon flat transparent @click="jumpToQuestion(i)" :danger="isWrongAnswer(q.id)"
+                                :success="isCorrectAnswer(q.id)">
+                                {{i + 1}}. {{q.q | chooseOne}}
+                            </vs-button>
+                        </vs-col>
+                    </vs-row>
                 </div>
-            </div>
+            
         </div>
         <div class="page" :class="{ hide: page !== 3}">
-            <vs-row justify="center">
-                <vs-col w="12">
-                    <div class="content">
+            <div class="content">
+                <br>
+                <vs-row justify="center">
+                    <vs-col w="10">
+                        <p>
+                            Auto move to next question
+                        </p>
+
+                    </vs-col>
+                    <vs-col w="2">
+                        <vs-switch success v-model="autoNextQuestion">
+                            <template #off>
+                                <i class='bx bx-x'></i>
+                            </template>
+                            <template #on>
+                                <i class='bx bx-check'></i>
+                            </template>
+                        </vs-switch>
+                    </vs-col>
+                </vs-row>
+                <br>
+                <vs-row justify="center">
+                    <vs-col w="12">
+
                         <vs-button block @click="location.reload()">
                             <i class="bx bx-refresh"></i> Reload
                         </vs-button>
@@ -183,9 +216,10 @@
                         <vs-button block @click="resetUserData()">
                             <i class="bx bxs-user-x"></i> Reset User Data
                         </vs-button>
-                    </div>
-                </vs-col>
-            </vs-row>
+
+                    </vs-col>
+                </vs-row>
+            </div>
         </div>
         <footer>
             <div v-if="page == 0" class="grid controls">
@@ -202,14 +236,9 @@
                             <i class='bx bx-chevron-left'></i>
                         </vs-button>
 
-                        <vs-button block icon relief color="twitter" size="xl" @click="hintDialog=true">
-                            <i class='bx bx-info-circle' v-if="!question.c"></i>
-                            <i class='bx bxs-info-circle' v-if="question.c"></i>
-                        </vs-button>
-
-                        <vs-button block icon relief danger size="xl" @click="toggleBookmark">
-                            <i class='bx bx-heart' v-if="!this.isQuestionBookmarked(question.id)"></i>
-                            <i class='bx bxs-heart' v-if="this.isQuestionBookmarked(question.id)"></i>
+                        <vs-button block icon relief danger size="xl" @click="toggleBookmark(question.id)">
+                            <i class='bx bx-heart' v-if="!isQuestionBookmarked(question.id)"></i>
+                            <i class='bx bxs-heart' v-if="isQuestionBookmarked(question.id)"></i>
                         </vs-button>
 
                         <vs-button class="validate" block icon relief success size="xl" @click="validate">
@@ -217,7 +246,7 @@
                         </vs-button>
 
 
-                        <vs-button block icon relief size="xl" @click="nextQuestion">
+                        <vs-button :loading="loadingAutoNextQuestion" block icon relief size="xl" @click="nextQuestion">
                             <i class='bx bx-chevron-right'></i>
                         </vs-button>
                     </vs-button-group>
