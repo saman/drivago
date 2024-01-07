@@ -7,6 +7,8 @@ new Vue({
     el: '#app',
     data: {
         page: 0,
+        listValue: '',
+        listValues: ['All', 'Wrongs', 'Corrects', 'Bookmarks'],
         loaded: false,
         hintDialog: false,
         userData: {},
@@ -23,6 +25,7 @@ new Vue({
         },
         answer: {},
         originalQuestion: {},
+        filteredQuestions: [],
     },
     watch: {
         index() {
@@ -33,15 +36,32 @@ new Vue({
         autoNextQuestion() {
             this.userData.autoNextQuestion = this.autoNextQuestion;
             this.setUserData();
+        },
+        listValue() {
+           this.filteredQuestions = this.data.questions.filter(x => {
+                if (this.listValue == 'All') {
+                    return true;
+                } else if (this.listValue == 'Wrongs') {
+                    return this.isWrongAnswer(x.id);
+                } else if (this.listValue == 'Corrects') {
+                    return this.isCorrectAnswer(x.id);
+                } else if (this.listValue == 'Bookmarks') {
+                    return this.isQuestionBookmarked(x.id);
+                }
+            });
+
+            if (this.filteredQuestions[this.index] == undefined) {
+                this.index = 0;
+            }
         }
     },
     computed: {
         questionNumber() {
-            return parseInt(this.index) + 1;
+            return parseInt(this.filteredQuestions[this.index].index) + 1;
         },
         question() {
             // var key = Object.keys(this.data.questions)[this.index];
-            this.originalQuestion = this.data.questions[this.index];
+            this.originalQuestion = this.filteredQuestions[this.index];
 
             var question = this.clone(this.originalQuestion);
 
@@ -82,12 +102,13 @@ new Vue({
 
             this.$http.get('./data/questionnaires.json').then(response => {
                 this.data = response.body.filter(x => x.lan == LANG && x.ver == VER).pop();
-                this.data.questions = Object.values(this.data.questions);
+                this.data.questions = Object.values(this.data.questions).map((x, i) => { x['index'] = i; return x;});
                 this.loaded = true;
+                this.listValue = 'All';
             });
         },
         nextQuestion() {
-            if (this.index < Object.keys(this.data.questions).length) {
+            if (this.index < this.filteredQuestions.length - 1) {
                 this.index++;
             }
         },
@@ -110,7 +131,7 @@ new Vue({
                 setTimeout(() => {
                     this.nextQuestion();
                     this.loadingAutoNextQuestion = false;
-                }, 250);
+                }, 500);
             }
         },
         storeAnswer() {
@@ -176,7 +197,7 @@ new Vue({
         calculateProgress() {
             let totalAnswsered = 0;
             if (this.userData.answers !== undefined) {
-                totalAnswsered = Object.keys(this.userData.answers).length;
+                totalAnswsered = Object.keys(this.userData.answers).filter(i => this.userData.answers[i] === true).length
             }
             return totalAnswsered / (this.data.questions.length - 1)
         },

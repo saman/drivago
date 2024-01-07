@@ -165,24 +165,34 @@
         </div>
         <div class="page" :class="{ hide: page !== 1}"></div>
         <div class="page selectable list" :class="{ hide: page !== 2}">
-            
-                <div class="q grid" v-for="(q, i) in data.questions" :key="i">
-                    <vs-row align="center" justify="center">
-                        <vs-col w="1">
-                            <vs-button icon transparent danger size="xxl" @click="toggleBookmark(q.id)">
-                                <i color="danger" class='bx bx-heart' v-if="!isQuestionBookmarked(q.id)"></i>
-                                <i color="danger" class='bx bxs-heart' v-if="isQuestionBookmarked(q.id)"></i>
-                            </vs-button>
-                        </vs-col>
-                        <vs-col w="11">
-                            <vs-button icon flat transparent @click="jumpToQuestion(i)" :danger="isWrongAnswer(q.id)"
-                                :success="isCorrectAnswer(q.id)">
-                                {{i + 1}}. {{q.q | chooseOne}}
-                            </vs-button>
-                        </vs-col>
-                    </vs-row>
-                </div>
-            
+            <div class="grid content compact">
+                <vs-row align="center" justify="center">
+                    <vs-col w="6">
+                        <vs-select placeholder="Select" v-model="listValue">
+                            <vs-option v-for="(l, i) in listValues" :label="l" :value="l">
+                                {{l}}
+                            </vs-option>
+                        </vs-select>
+                    </vs-col>
+                </vs-row>
+            </div>
+            <div class="q grid" v-for="(q, i) in filteredQuestions" :key="i">
+                <vs-row align="center" justify="center">
+                    <vs-col w="1">
+                        <vs-button icon transparent danger size="xxl" @click="toggleBookmark(q.id)">
+                            <i color="danger" class='bx bx-heart' v-if="!isQuestionBookmarked(q.id)"></i>
+                            <i color="danger" class='bx bxs-heart' v-if="isQuestionBookmarked(q.id)"></i>
+                        </vs-button>
+                    </vs-col>
+                    <vs-col w="11">
+                        <vs-button icon flat transparent @click="jumpToQuestion(q.index)" :danger="isWrongAnswer(q.id)"
+                            :success="isCorrectAnswer(q.id)">
+                            {{q.index + 1}}. {{q.q | chooseOne}}
+                        </vs-button>
+                    </vs-col>
+                </vs-row>
+            </div>
+
         </div>
         <div class="page" :class="{ hide: page !== 3}">
             <div class="content">
@@ -226,7 +236,10 @@
                 <vs-row justify="center">
                     <vs-col w="12">
                         <div class="progress">
-                            <input type="range" min="0" :max="data.questions.length - 1" v-model="index">
+                            <span class="progress-value">
+                                {{ parseInt(index) + 1 }} / {{ filteredQuestions.length }}
+                            </span>
+                            <input type="range" min="0" :max="filteredQuestions.length - 1" v-model="index">
                         </div>
                     </vs-col>
                 </vs-row>
