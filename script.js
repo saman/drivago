@@ -24,7 +24,6 @@ new Vue({
             a3: false
         },
         answer: {},
-        originalQuestion: {},
         filteredQuestions: [],
     },
     watch: {
@@ -38,7 +37,7 @@ new Vue({
             this.setUserData();
         },
         listValue() {
-           this.filteredQuestions = this.data.questions.filter(x => {
+            this.filteredQuestions = this.data.questions.filter(x => {
                 if (this.listValue == 'All') {
                     return true;
                 } else if (this.listValue == 'Wrongs') {
@@ -60,11 +59,11 @@ new Vue({
             return parseInt(this.filteredQuestions[this.index].index) + 1;
         },
         question() {
-            // var key = Object.keys(this.data.questions)[this.index];
-            this.originalQuestion = this.filteredQuestions[this.index];
+            if (this.filteredQuestions[this.index] == undefined) {
+                return {};
+            }
 
-            var question = this.clone(this.originalQuestion);
-
+            var question = this.clone(this.filteredQuestions[this.index]);
 
             question.q = this.chooseOneFromMultiple(question.q);
             if (question.a1) {
@@ -90,7 +89,34 @@ new Vue({
                 question.pr = this.chooseOneFromMultiple(question.pr);
             }
 
+            this.startStat(question.id);
+
             return question;
+        },
+        calculateStats() {
+            try {
+                let totalAnswsered = 0;
+                if (this.userData.answers !== undefined) {
+                    totalAnswsered = Object.keys(this.userData.answers).filter(i => this.userData.answers[i] === true).length
+                }
+                return {
+                    total: this.data.questions.length - 1,
+                    answered: totalAnswsered,
+                    unanswered: this.data.questions.length - 1 - totalAnswsered,
+                    correct: Object.keys(this.userData.answers).filter(i => this.userData.answers[i] === true).length,
+                    wrong: Object.keys(this.userData.answers).filter(i => this.userData.answers[i] === false).length,
+                    avgAnswerTime: this.userData.stats ? Object.values(this.userData.stats).map(x => x.end - x.start).reduce((a, b) => a + b, 0) / Object.values(this.userData.stats).length : 0
+                }
+            } catch (error) {
+                return {
+                    total: 0,
+                    answered: 0,
+                    unanswered: 0,
+                    correct: 0,
+                    wrong: 0,
+                    avgAnswerTime: 0
+                }
+            }
         }
     },
     methods: {
@@ -102,7 +128,7 @@ new Vue({
 
             this.$http.get('./data/questionnaires.json').then(response => {
                 this.data = response.body.filter(x => x.lan == LANG && x.ver == VER).pop();
-                this.data.questions = Object.values(this.data.questions).map((x, i) => { x['index'] = i; return x;});
+                this.data.questions = Object.values(this.data.questions).map((x, i) => { x['index'] = i; return x; });
                 this.loaded = true;
                 this.listValue = 'All';
             });
@@ -124,7 +150,9 @@ new Vue({
                 a3: this.checkAnswer(this.values.a3, this.question.v3),
             }
             this.validateValue = true
+            this.endStat();
             this.storeAnswer();
+            this.setUserData();
 
             if (this.isCorrectAnswer(this.question.id) && this.autoNextQuestion) {
                 this.loadingAutoNextQuestion = true;
@@ -142,7 +170,30 @@ new Vue({
             this.userData.answers[this.question.id] = this.answer.a1 && this.answer.a2 && this.answer.a3;
 
             this.progress = this.userData.progress = this.calculateProgress();
+        },
+        startStat(questionId) {
+            if (questionId == undefined) {
+                return;
+            }
+
+            if (this.userData.stats === undefined) {
+                this.userData.stats = {};
+            }
+
+            if (this.userData.stats[questionId] === undefined) {
+                this.userData.stats[questionId] = {
+                    tmpStart: new Date().getTime(),
+                    start: '',
+                    end: ''
+                };
+            } else {
+                this.userData.stats[questionId].tmpStart = new Date().getTime();
+            }
             this.setUserData();
+        },
+        endStat() {
+            this.userData.stats[this.question.id].start = this.userData.stats[this.question.id].tmpStart;
+            this.userData.stats[this.question.id].end = new Date().getTime();
         },
         toggleBookmark(id) {
             if (this.userData.bookmarks === undefined) {
@@ -230,6 +281,14 @@ new Vue({
         },
         percentage(num) {
             return Number(Math.ceil(num * 10000) / 100).toFixed(2) + '%';
+        },
+        timeFormat(time) {
+            var date = new Date(0);
+            date.setSeconds(time / 1000);
+            return date.toISOString().substring(11, 19);
+        },
+        capitalCase(str) {
+            return str.charAt(0).toUpperCase() + str.slice(1);
         }
     },
     created() {

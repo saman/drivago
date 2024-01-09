@@ -194,7 +194,31 @@
             </div>
 
         </div>
+
         <div class="page" :class="{ hide: page !== 3}">
+            <div class="content stats">
+                <br>
+                <vs-row justify="center" class="center grid">
+                    <vs-col w="12">
+                        <table>
+                            <tr v-for="(v, k) in calculateStats">
+                                <td>
+                                    {{ k | capitalCase }}
+                                </td>
+                                <td v-if="k == 'avgAnswerTime'">
+                                    {{ v | timeFormat }}
+                                </td>
+                                <td v-if=" k != 'avgAnswerTime'">
+                                    {{ v }}
+                                </td>
+                            </tr>
+                        </table>
+                    </vs-col>
+                </vs-row>
+            </div>
+        </div>
+
+        <div class="page" :class="{ hide: page !== 4}">
             <div class="content">
                 <br>
                 <vs-row justify="center">
@@ -245,7 +269,7 @@
                 </vs-row>
                 <vs-row justify="center">
                     <vs-button-group>
-                        <vs-button block icon relief size="xl" @click="prevQuestion">
+                        <vs-button :disabled="index == 0" block icon relief size="xl" @click="prevQuestion">
                             <i class='bx bx-chevron-left'></i>
                         </vs-button>
 
@@ -259,7 +283,8 @@
                         </vs-button>
 
 
-                        <vs-button :loading="loadingAutoNextQuestion" block icon relief size="xl" @click="nextQuestion">
+                        <vs-button :disabled="!(this.index < this.filteredQuestions.length - 1)"
+                            :loading="loadingAutoNextQuestion" block icon relief size="xl" @click="nextQuestion">
                             <i class='bx bx-chevron-right'></i>
                         </vs-button>
                     </vs-button-group>
@@ -267,26 +292,26 @@
             </div>
             <nav class="center grid">
                 <vs-row>
-                    <vs-col vs-type="flex" vs-justify="center" vs-align="center" w="4">
+                    <vs-col vs-type="flex" vs-justify="center" vs-align="center" w="3">
                         <vs-button :active="page == 0" flat icon block size="xl" @click="page = 0">
                             <i class="bx bx-detail"></i>
                         </vs-button>
                     </vs-col>
 
-                    <!-- <vs-col vs-type="flex" vs-justify="center" vs-align="center" w="3">
-                        <vs-button :active="page == 1" flat icon block size="xl" @click="page = 1">
-                            <i class="bx bxs-heart"></i>
-                        </vs-button>
-                    </vs-col> -->
-
-                    <vs-col vs-type="flex" vs-justify="center" vs-align="center" w="4">
+                    <vs-col vs-type="flex" vs-justify="center" vs-align="center" w="3">
                         <vs-button :active="page == 2" flat icon block size="xl" @click="page = 2">
                             <i class="bx bx-list-ul"></i>
                         </vs-button>
                     </vs-col>
 
-                    <vs-col vs-type="flex" vs-justify="center" vs-align="center" w="4">
+                    <vs-col vs-type="flex" vs-justify="center" vs-align="center" w="3">
                         <vs-button :active="page == 3" flat icon block size="xl" @click="page = 3">
+                            <i class="bx bx-bar-chart-alt-2"></i>
+                        </vs-button>
+                    </vs-col>
+
+                    <vs-col vs-type="flex" vs-justify="center" vs-align="center" w="3">
+                        <vs-button :active="page == 4" flat icon block size="xl" @click="page = 4">
                             <i class="bx bxs-cog"></i>
                         </vs-button>
                     </vs-col>
@@ -296,7 +321,6 @@
     </div>
 
     <div class="hide">
-        <pre>{{originalQuestion | json}}</pre>
         <pre>{{question | json}}</pre>
     </div>
     </div>
