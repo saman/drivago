@@ -167,21 +167,22 @@
         <div class="page selectable list" :class="{ hide: page !== 2}">
             <div class="grid content compact">
                 <vs-row align="center" justify="center" class="nav">
-                    
-                        <vs-button-group>
-                            <vs-button :relief="l==listValue" @click="listValue=l" block v-model="listValue" v-for="(l, i) in listValues" icon :flat="l!=listValue">
-                                {{l}}
-                            </vs-button>
-                        </vs-button-group>
-                        <!-- <vs-select placeholder="Select" v-model="listValue">
+
+                    <vs-button-group>
+                        <vs-button :relief="l==listValue" @click="listValue=l" block v-model="listValue"
+                            v-for="(l, i) in listValues" icon :flat="l!=listValue">
+                            {{l}}
+                        </vs-button>
+                    </vs-button-group>
+                    <!-- <vs-select placeholder="Select" v-model="listValue">
                             <vs-option v-for="(l, i) in listValues" :label="l" :value="l">
                                 {{l}}
                             </vs-option>
                         </vs-select> -->
-                        <!-- <vs-radio v-model="listValue" v-for="(l, i) in listValues" :label="l" :val="l">
+                    <!-- <vs-radio v-model="listValue" v-for="(l, i) in listValues" :label="l" :val="l">
                             {{l}}
                         </vs-radio> -->
-                    
+
                 </vs-row>
             </div>
             <div v-if="filteredQuestions.length" class="q grid" v-for="(q, i) in filteredQuestions" :key="i">
