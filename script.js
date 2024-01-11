@@ -11,6 +11,7 @@ new Vue({
         listValues: ['All', 'Wrongs', 'Corrects', 'Bookmarks'],
         loaded: false,
         hintDialog: false,
+        resetUserDataDialog: false,
         userData: {},
         data: {},
         index: 0,
@@ -25,12 +26,20 @@ new Vue({
         },
         answer: {},
         filteredQuestions: [],
+        stats: {},
+        tmpStart: 0,
     },
     watch: {
+        loaded() {
+            this.calculateStats();
+        },
         index() {
             this.resetValues();
             this.userData.index = this.index;
             this.setUserData();
+        },
+        page() {
+            this.startStat();
         },
         autoNextQuestion() {
             this.userData.autoNextQuestion = this.autoNextQuestion;
@@ -89,34 +98,11 @@ new Vue({
                 question.pr = this.chooseOneFromMultiple(question.pr);
             }
 
-            this.startStat(question.id);
+            question.bookmark = this.isQuestionBookmarked(question.id);
+
+            this.startStat();
 
             return question;
-        },
-        calculateStats() {
-            try {
-                let totalAnswsered = 0;
-                if (this.userData.answers !== undefined) {
-                    totalAnswsered = Object.keys(this.userData.answers).filter(i => this.userData.answers[i] === true).length
-                }
-                return {
-                    total: this.data.questions.length - 1,
-                    answered: totalAnswsered,
-                    unanswered: this.data.questions.length - 1 - totalAnswsered,
-                    correct: Object.keys(this.userData.answers).filter(i => this.userData.answers[i] === true).length,
-                    wrong: Object.keys(this.userData.answers).filter(i => this.userData.answers[i] === false).length,
-                    avgAnswerTime: this.userData.stats ? Object.values(this.userData.stats).map(x => x.end - x.start).reduce((a, b) => a + b, 0) / Object.values(this.userData.stats).length : 0
-                }
-            } catch (error) {
-                return {
-                    total: 0,
-                    answered: 0,
-                    unanswered: 0,
-                    correct: 0,
-                    wrong: 0,
-                    avgAnswerTime: 0
-                }
-            }
         }
     },
     methods: {
@@ -125,6 +111,7 @@ new Vue({
             this.index = this.userData.index || 0;
             this.progress = this.userData.progress || 0;
             this.autoNextQuestion = this.userData.autoNextQuestion || false;
+            this.userData.stats = this.userData.stats || {};
 
             this.$http.get('./data/questionnaires.json').then(response => {
                 this.data = response.body.filter(x => x.lan == LANG && x.ver == VER).pop();
@@ -171,29 +158,39 @@ new Vue({
 
             this.progress = this.userData.progress = this.calculateProgress();
         },
-        startStat(questionId) {
-            if (questionId == undefined) {
+        startStat() {
+            this.tmpStart = new Date().getTime();
+        },
+        endStat() {
+            if (this.question.id == undefined) {
                 return;
             }
 
-            if (this.userData.stats === undefined) {
-                this.userData.stats = {};
+            if (this.userData.stats[this.question.id] === undefined) {
+                this.userData.stats[this.question.id] = {
+                    start: 0,
+                    end: 0
+                };
             }
 
-            if (this.userData.stats[questionId] === undefined) {
-                this.userData.stats[questionId] = {
-                    tmpStart: new Date().getTime(),
-                    start: '',
-                    end: ''
-                };
-            } else {
-                this.userData.stats[questionId].tmpStart = new Date().getTime();
-            }
-            this.setUserData();
-        },
-        endStat() {
-            this.userData.stats[this.question.id].start = this.userData.stats[this.question.id].tmpStart;
+            this.userData.stats[this.question.id].start = this.tmpStart;
             this.userData.stats[this.question.id].end = new Date().getTime();
+
+            this.calculateStats();
+        },
+        calculateStats() {
+            try {
+                this.stats['total'] = this.data.questions ? (this.data.questions.length - 1) : 0;
+                this.stats['answered'] = Object.keys(this.userData.answers).length || 0;
+                this.stats['unanswered'] = this.stats['total'] - this.stats['answered'];
+                this.stats['correct'] = Object.keys(this.userData.answers).filter(i => this.userData.answers[i] === true).length || 0;
+                this.stats['wrong'] = Object.keys(this.userData.answers).filter(i => this.userData.answers[i] === false).length || 0;
+                this.stats['avgAnswerTime'] = this.userData.stats ? Object.values(this.userData.stats).map(x => x.end - x.start).reduce((a, b) => a + b, 0) / Object.values(this.userData.stats).length : 0
+            } catch (error) {
+                console.log(error);
+            }
+
+            console.log(this.stats);
         },
         toggleBookmark(id) {
             if (this.userData.bookmarks === undefined) {
@@ -257,6 +254,32 @@ new Vue({
         },
         setUserData() {
             localStorage.setItem('user-data', JSON.stringify(this.userData));
+        },
+        backupUsertData() {
+            var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(this.userData));
+            var downloadAnchorNode = document.createElement('a');
+            downloadAnchorNode.setAttribute("href", dataStr);
+            downloadAnchorNode.setAttribute("download", "drivago.json");
+            document.body.appendChild(downloadAnchorNode); // required for firefox
+            downloadAnchorNode.click();
+            downloadAnchorNode.remove();
+        },
+        importUserData() {
+            var file = document.getElementById('file').files[0];
+            var reader = new FileReader();
+            reader.onload = (e) => {
+                try {
+                    this.userData = JSON.parse(e.target.result);
+                    this.setUserData();
+                    location.reload();
+                } catch (error) {
+                    alert('Invalid file');
+                }
+            }
+            reader.readAsText(file);
+        },
+        importUserDataTrigger() {
+            document.getElementById('file').click();
         },
         resetUserData() {
             this.userData = {};

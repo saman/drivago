@@ -201,7 +201,7 @@
                 <vs-row justify="center" class="center grid">
                     <vs-col w="12">
                         <table>
-                            <tr v-for="(v, k) in calculateStats">
+                            <tr v-for="(v, k) in stats">
                                 <td>
                                     {{ k | capitalCase }}
                                 </td>
@@ -218,7 +218,7 @@
             </div>
         </div>
 
-        <div class="page" :class="{ hide: page !== 4}">
+        <div class="page settings" :class="{ hide: page !== 4}">
             <div class="content">
                 <br>
                 <vs-row justify="center">
@@ -247,15 +247,51 @@
                             <i class="bx bx-refresh"></i> Reload
                         </vs-button>
 
-                        <vs-button block @click="resetUserData()">
-                            <i class="bx bxs-user-x"></i> Reset User Data
+                        <br>
+                        
+                        <input block type="file" id="file" ref="file" style="display: none" @change="importUserData">
+                        <vs-button block @click="importUserDataTrigger">
+                            <i class="bx bx-import"></i> Import User Data
                         </vs-button>
 
+                        <vs-button block @click="backupUsertData()">
+                            <i class="bx bx-save"></i> Backup User Data
+                        </vs-button>
+
+                        <vs-button danger block @click="resetUserDataDialog = true">
+                            <i class="bx bxs-user-x"></i> Delete User Data
+                        </vs-button>
+
+                        <vs-dialog width="550px" not-center v-model="resetUserDataDialog">
+                            <template #header>
+                                <h4 class="not-margin">
+                                    Reset User Data
+                                </h4>
+                            </template>
+
+
+                            <div class="con-content">
+                                <p>
+                                    Are you sure you want to delete all answers, bookmarks and settings?
+                                </p>
+                            </div>
+
+                            <template #footer>
+                                <div class="con-footer">
+                                    <vs-button @click="resetUserData()" transparent danger>
+                                        Delete
+                                    </vs-button>
+                                    <vs-button @click="resetUserDataDialog=false" transparent>
+                                        Cancel
+                                    </vs-button>
+                                </div>
+                            </template>
+                        </vs-dialog>
                     </vs-col>
                 </vs-row>
             </div>
         </div>
-        <footer>
+        <footer class="app-footer">
             <div v-if="page == 0" class="grid controls">
                 <vs-row justify="center">
                     <vs-col w="12">
@@ -274,8 +310,8 @@
                         </vs-button>
 
                         <vs-button block icon relief danger size="xl" @click="toggleBookmark(question.id)">
-                            <i class='bx bx-heart' v-if="!isQuestionBookmarked(question.id)"></i>
-                            <i class='bx bxs-heart' v-if="isQuestionBookmarked(question.id)"></i>
+                            <i class='bx bx-heart' v-if="!question.bookmark"></i>
+                            <i class='bx bxs-heart' v-if="question.bookmark"></i>
                         </vs-button>
 
                         <vs-button class="validate" block icon relief success size="xl" @click="validate">

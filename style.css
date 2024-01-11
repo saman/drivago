@@ -127,6 +127,10 @@ video {
     opacity: 0.3;
 }
 
+.settings .bx, .controls .bx {
+    margin: 10px;
+}
+
 .pre-question {
     margin-bottom: 20px;
 }
@@ -247,7 +251,7 @@ caption {
     padding: 10px;
 }
 
-footer {
+footer.app-footer {
     position: fixed;
     width: 100%;
     bottom: 0;
@@ -255,28 +259,28 @@ footer {
     background: #fff;
 }
 
-footer nav {
+footer.app-footer nav {
     border-top: 1px solid #eee;
     width: 100%;
     min-height: 8vh;
     /* padding: 0.4rem; */
 }
 
-footer nav .vs-button {
+footer.app-footer nav .vs-button {
     color: #aaa !important;
     background: none !important;
 }
 
-footer nav .vs-button--active {
+footer.app-footer nav .vs-button--active {
     color: rgba(25, 91, 255, 1) !important;
     background: none !important;
 }
 
-footer nav .vs-button--icon i {
+footer.app-footer nav .vs-button--icon i {
     font-size: 1.4rem !important;
 }
 
-footer nav .vs-button--block {
+footer.app-footer nav .vs-button--block {
     width: 90%;
 }
 
@@ -285,62 +289,81 @@ footer nav .vs-button--block {
 }
 
 
-/* body {
-    min-height: calc(100% + env(safe-area-inset-top));
-    font-family: 'Airbnb Cereal App';
-    touch-action: none;
-    overflow: auto;
-    user-select: none;
-    -moz-user-select: none;
-    -webkit-user-select: none;
+.con-footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
 }
 
-.header {
-    margin: 0;
-    padding: env(safe-area-inset-top) env(safe-area-inset-right) 0 env(safe-area-inset-left);
-    background-color: darkcyan;
+.con-footer .vs-button {
+    margin: 0px;
 }
 
-nav {
-    margin: 0;
-    padding: 0 15px 5px;
-    user-select: none;
+.con-footer .vs-button .vs-button__content {
+    padding: 10px 30px;
 }
 
-nav * {
-    color: white !important;
+.con-footer .vs-button~.vs-button {
+    margin-left: 10px;
 }
 
-.selectable {
-    user-select: text;
-    -moz-user-select: text;
-    -webkit-user-select: text;
+.not-margin {
+    margin: 0px;
+    font-weight: normal;
+    padding: 10px;
+    padding-bottom: 0px;
 }
 
-#app {
-    margin: 10px;
+.con-content {
+    width: 100%;
 }
 
-h4 {
-    margin: 0;
-    padding: 0;
+.con-content p {
+    font-size: 0.8rem;
+    padding: 0px 10px;
 }
 
-
-.validate {
-    background-color: green;
+.con-content .vs-checkbox-label {
+    font-size: 0.8rem;
 }
 
-
-
-.green {
-    color: green;
+.con-content .vs-input-parent {
+    width: 100%;
 }
 
-.red {
-    color: red;
+.con-content .vs-input-content {
+    margin: 10px 0px;
+    width: calc(100%);
 }
 
-input[disabled] {
-    background-color: gray;
-} */
+.con-content .vs-input-content .vs-input {
+    width: 100%;
+}
+
+.footer-dialog {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: calc(100%);
+}
+
+.footer-dialog .new {
+    margin: 0px;
+    margin-top: 20px;
+    padding: 0px;
+    font-size: 0.7rem;
+}
+
+.footer-dialog .new a {
+    color: getColor('primary') !important;
+    margin-left: 6px;
+}
+
+.footer-dialog .new a:hover {
+    text-decoration: underline;
+}
+
+.footer-dialog .vs-button {
+    margin: 0px;
+}
