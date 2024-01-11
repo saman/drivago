@@ -34,7 +34,7 @@
                 <span class="progress-value">{{ progress | percentage }}</span>
             </div>
 
-            <div class="content">
+            <div class="content" v-if="questionNumber > 0">
                 <div>
                     <vs-card type="2">
                         <img v-if="question.image" :src="question.image">
@@ -166,17 +166,25 @@
         <div class="page" :class="{ hide: page !== 1}"></div>
         <div class="page selectable list" :class="{ hide: page !== 2}">
             <div class="grid content compact">
-                <vs-row align="center" justify="center">
-                    <vs-col w="6">
-                        <vs-select placeholder="Select" v-model="listValue">
+                <vs-row align="center" justify="center" class="nav">
+                    
+                        <vs-button-group>
+                            <vs-button :relief="l==listValue" @click="listValue=l" block v-model="listValue" v-for="(l, i) in listValues" icon :flat="l!=listValue">
+                                {{l}}
+                            </vs-button>
+                        </vs-button-group>
+                        <!-- <vs-select placeholder="Select" v-model="listValue">
                             <vs-option v-for="(l, i) in listValues" :label="l" :value="l">
                                 {{l}}
                             </vs-option>
-                        </vs-select>
-                    </vs-col>
+                        </vs-select> -->
+                        <!-- <vs-radio v-model="listValue" v-for="(l, i) in listValues" :label="l" :val="l">
+                            {{l}}
+                        </vs-radio> -->
+                    
                 </vs-row>
             </div>
-            <div class="q grid" v-for="(q, i) in filteredQuestions" :key="i">
+            <div v-if="filteredQuestions.length" class="q grid" v-for="(q, i) in filteredQuestions" :key="i">
                 <vs-row align="center" justify="center">
                     <vs-col w="1">
                         <vs-button icon transparent danger size="xxl" @click="toggleBookmark(q.id)">
@@ -248,7 +256,7 @@
                         </vs-button>
 
                         <br>
-                        
+
                         <input block type="file" id="file" ref="file" style="display: none" @change="importUserData">
                         <vs-button block @click="importUserDataTrigger">
                             <i class="bx bx-import"></i> Import User Data

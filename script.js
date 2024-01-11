@@ -65,13 +65,15 @@ new Vue({
     },
     computed: {
         questionNumber() {
+            if (this.filteredQuestions[this.index] == undefined) {
+                return 0;
+            }
             return parseInt(this.filteredQuestions[this.index].index) + 1;
         },
         question() {
             if (this.filteredQuestions[this.index] == undefined) {
                 return {};
             }
-
             var question = this.clone(this.filteredQuestions[this.index]);
 
             question.q = this.chooseOneFromMultiple(question.q);
@@ -189,8 +191,6 @@ new Vue({
             } catch (error) {
                 console.log(error);
             }
-
-            console.log(this.stats);
         },
         toggleBookmark(id) {
             if (this.userData.bookmarks === undefined) {
