@@ -255,7 +255,7 @@ new Vue({
         setUserData() {
             localStorage.setItem('user-data', JSON.stringify(this.userData));
         },
-        backupUsertData() {
+        backupUserData() {
             var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(this.userData));
             var downloadAnchorNode = document.createElement('a');
             downloadAnchorNode.setAttribute("href", dataStr);
