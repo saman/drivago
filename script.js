@@ -56,8 +56,7 @@ new Vue({
                 } else if (this.listValue == 'Bookmarks') {
                     return this.isQuestionBookmarked(x.id);
                 }
-            });
-
+            });            
             if (this.filteredQuestions[this.index] == undefined) {
                 this.index = 0;
             }
@@ -187,6 +186,7 @@ new Vue({
                 this.stats['unanswered'] = this.stats['total'] - this.stats['answered'];
                 this.stats['correct'] = Object.keys(this.userData.answers).filter(i => this.userData.answers[i] === true).length || 0;
                 this.stats['wrong'] = Object.keys(this.userData.answers).filter(i => this.userData.answers[i] === false).length || 0;
+                this.stats['progress'] = this.userData.progress || 0;
                 this.stats['avgAnswerTime'] = this.userData.stats ? Object.values(this.userData.stats).map(x => x.end - x.start).reduce((a, b) => a + b, 0) / Object.values(this.userData.stats).length : 0
             } catch (error) {
                 console.log(error);

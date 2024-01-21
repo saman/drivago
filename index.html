@@ -165,41 +165,31 @@
         </div>
         <div class="page" :class="{ hide: page !== 1}"></div>
         <div class="page selectable list" :class="{ hide: page !== 2}">
-            <div class="grid content compact">
-                <vs-row align="center" justify="center" class="nav">
-
-                    <vs-button-group>
-                        <vs-button :relief="l==listValue" @click="listValue=l" block v-model="listValue"
-                            v-for="(l, i) in listValues" icon :flat="l!=listValue">
-                            {{l}}
-                        </vs-button>
-                    </vs-button-group>
-                    <!-- <vs-select placeholder="Select" v-model="listValue">
-                            <vs-option v-for="(l, i) in listValues" :label="l" :value="l">
-                                {{l}}
-                            </vs-option>
-                        </vs-select> -->
-                    <!-- <vs-radio v-model="listValue" v-for="(l, i) in listValues" :label="l" :val="l">
-                            {{l}}
-                        </vs-radio> -->
-
-                </vs-row>
-            </div>
-            <div v-if="filteredQuestions.length" class="q grid" v-for="(q, i) in filteredQuestions" :key="i">
-                <vs-row align="center" justify="center">
-                    <vs-col w="1">
-                        <vs-button icon transparent danger size="xxl" @click="toggleBookmark(q.id)">
-                            <i color="danger" class='bx bx-heart' v-if="!isQuestionBookmarked(q.id)"></i>
-                            <i color="danger" class='bx bxs-heart' v-if="isQuestionBookmarked(q.id)"></i>
-                        </vs-button>
-                    </vs-col>
-                    <vs-col w="11">
-                        <vs-button icon flat transparent @click="jumpToQuestion(q.index)" :danger="isWrongAnswer(q.id)"
-                            :success="isCorrectAnswer(q.id)">
-                            {{q.index + 1}}. {{q.q | chooseOne}}
-                        </vs-button>
-                    </vs-col>
-                </vs-row>
+            <vs-row align="center" justify="center" class="nav">
+                <vs-button-group>
+                    <vs-button :relief="l==listValue" @click="listValue=l" block v-model="listValue"
+                        v-for="(l, i) in listValues" icon :flat="l!=listValue">
+                        {{l}}
+                    </vs-button>
+                </vs-button-group>
+            </vs-row>
+            <div class="questions content compact">
+                <div v-if="filteredQuestions.length" class="q grid" v-for="(q, i) in filteredQuestions" :key="i">
+                    <vs-row align="center" justify="center">
+                        <vs-col w="1">
+                            <vs-button icon transparent danger size="xxl" @click="toggleBookmark(q.id)">
+                                <i color="danger" class='bx bx-heart' v-if="!isQuestionBookmarked(q.id)"></i>
+                                <i color="danger" class='bx bxs-heart' v-if="isQuestionBookmarked(q.id)"></i>
+                            </vs-button>
+                        </vs-col>
+                        <vs-col w="11">
+                            <vs-button icon flat transparent @click="jumpToQuestion(i)" :danger="isWrongAnswer(q.id)"
+                                :success="isCorrectAnswer(q.id)">
+                                {{q.index + 1}}. {{q.q | chooseOne}}
+                            </vs-button>
+                        </vs-col>
+                    </vs-row>
+                </div>
             </div>
 
         </div>
@@ -214,10 +204,13 @@
                                 <td>
                                     {{ k | capitalCase }}
                                 </td>
+                                <td v-if="k == 'progress'">
+                                    {{ v | percentage }}
+                                </td>
                                 <td v-if="k == 'avgAnswerTime'">
                                     {{ v | timeFormat }}
                                 </td>
-                                <td v-if=" k != 'avgAnswerTime'">
+                                <td v-if="k != 'avgAnswerTime' && k != 'progress'">
                                     {{ v }}
                                 </td>
                             </tr>
