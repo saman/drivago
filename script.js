@@ -28,6 +28,7 @@ new Vue({
         filteredQuestions: [],
         stats: {},
         tmpStart: 0,
+        randomizeAnswerIds: [1, 2, 3]
     },
     watch: {
         loaded() {
@@ -100,6 +101,8 @@ new Vue({
             }
 
             question.bookmark = this.isQuestionBookmarked(question.id);
+
+            this.randomizeAnswerIds.sort(() => Math.random() - 0.5);
 
             this.startStat();
 

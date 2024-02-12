@@ -72,91 +72,42 @@
                     <div v-if="question.pr" class="pre-question">
                         <span>{{question.pr}}:</span>
                     </div>
-                    <div class="grid selectable" :class="{ hide: validateValue}">
-                        <div class="answer" v-if="question.a1">
-                            <label class="grid">
-                                <vs-row>
-                                    <vs-col vs-justify="center" vs-align="right" w="2">
-                                        <vs-checkbox class="test" v-model="values.a1"></vs-checkbox>
-                                    </vs-col>
-                                    <vs-col w="10">
-                                        {{question.a1}}
-                                    </vs-col>
-                                </vs-row>
-                            </label>
-                        </div>
-                        <div class="answer" v-if="question.a2">
-                            <label class="grid">
-                                <vs-row>
-                                    <vs-col w="2">
-                                        <vs-checkbox class="test" v-model="values.a2"></vs-checkbox>
-                                    </vs-col>
-                                    <vs-col w="10">
-                                        {{question.a2}}
-                                    </vs-col>
-                                </vs-row>
-                            </label>
-                        </div>
-                        <div class="answer" v-if="question.a3">
-                            <label class="grid">
-                                <vs-row>
-                                    <vs-col w="2">
-                                        <vs-checkbox class="test" v-model="values.a3"></vs-checkbox>
-                                    </vs-col>
-                                    <vs-col w="10">
-                                        {{question.a3}}
-                                    </vs-col>
-                                </vs-row>
-                            </label>
+                    <div class="grid selectable" :class="{hide: validateValue}">
+                        <div v-for="id in randomizeAnswerIds">
+                            <div class="answer" v-if="question['a' + id]">
+                                <label class="grid">
+                                    <vs-row>
+                                        <vs-col vs-justify="center" vs-align="right" w="2">
+                                            <vs-checkbox class="test" v-model="values['a' + id]"></vs-checkbox>
+                                        </vs-col>
+                                        <vs-col w="10">
+                                            {{question['a' + id]}}
+                                        </vs-col>
+                                    </vs-row>
+                                </label>
+                            </div>
                         </div>
                     </div>
 
                     <div class="grid selectable" :class="{ hide: !validateValue}">
-                        <div class="answer" v-if="question.a1">
-                            <label class="grid"
-                                :class="{'green': question.v1 == 'x', 'red': !question.v1 && values.a1}">
-                                <vs-row>
-                                    <vs-col vs-justify="center" vs-align="right" w="2">
-                                        <vs-checkbox :success="answer.a1" :danger="!answer.a1" v-model="values.a1"
-                                            disabled></vs-checkbox>
-                                    </vs-col>
-                                    <vs-col w="10">
-                                        {{ question.v1 == undefined || question.v1 == 'x' || question.v1 == '' ?
-                                        question.a1 : question.v1}}
-                                    </vs-col>
-                                </vs-row>
-                            </label>
+                        <div v-for="id in randomizeAnswerIds">
+                            <div class="answer" v-if="question['a' + id]">
+                                <label class="grid"
+                                    :class="{'green': question['v' + id] == 'x', 'red': !question['v' + id] && values['a' + id]}">
+                                    <vs-row>
+                                        <vs-col vs-justify="center" vs-align="right" w="2">
+                                            <vs-checkbox :success="answer['a' + id]" :danger="!answer['a' + id]" v-model="values['a' + id]"
+                                                disabled></vs-checkbox>
+                                        </vs-col>
+                                        <vs-col w="10">
+                                            {{ question['v' + id] == undefined || question['v' + id] == 'x' || question['v' + id] == '' ?
+                                            question['a' + id] : question['v' + id]}}
+                                        </vs-col>
+                                    </vs-row>
+                                </label>
+                            </div>
                         </div>
-                        <div class="answer" v-if="question.a2">
-                            <label class="grid"
-                                :class="{'green': question.v2 == 'x', 'red': !question.v2 && values.a2}">
-                                <vs-row>
-                                    <vs-col w="2">
-                                        <vs-checkbox :success="answer.a2" :danger="!answer.a2" v-model="values.a2"
-                                            disabled></vs-checkbox>
-                                    </vs-col>
-                                    <vs-col w="10">
-                                        {{ question.v2 == undefined || question.v2 == 'x' || question.v2 == '' ?
-                                        question.a2 : question.v2}}
-                                    </vs-col>
-                                </vs-row>
-                            </label>
-                        </div>
-                        <div class="answer" v-if="question.a3">
-                            <label class="grid"
-                                :class="{'green': question.v3 == 'x', 'red': !question.v3 && values.a3}">
-                                <vs-row>
-                                    <vs-col w="2">
-                                        <vs-checkbox :success="answer.a3" :danger="!answer.a3" v-model="values.a3"
-                                            disabled></vs-checkbox>
-                                    </vs-col>
-                                    <vs-col w="10">
-                                        {{ question.v3 == undefined || question.v3 == 'x' || question.v3 == '' ?
-                                        question.a3 : question.v3}}
-                                    </vs-col>
-                                </vs-row>
-                            </label>
-                        </div>
+                       
                     </div>
 
                 </div>
