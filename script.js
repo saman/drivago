@@ -76,28 +76,30 @@ new Vue({
             }
             var question = this.clone(this.filteredQuestions[this.index]);
 
-            question.q = this.chooseOneFromMultiple(question.q);
+            var randomIndex = this.randomArrayIndex(this.multipleStrToArray(question.q));
+
+            question.q = this.multipleStrToArray(question.q)[randomIndex];
             if (question.a1) {
-                question.a1 = this.chooseOneFromMultiple(question.a1);
+                question.a1 = this.multipleStrToArray(question.a1)[randomIndex];
             }
             if (question.a2) {
-                question.a2 = this.chooseOneFromMultiple(question.a2);
+                question.a2 = this.multipleStrToArray(question.a2)[randomIndex];
             }
             if (question.a3) {
-                question.a3 = this.chooseOneFromMultiple(question.a3);
+                question.a3 = this.multipleStrToArray(question.a3)[randomIndex];
             }
             if (question.p) {
-                question.p = this.chooseOneFromMultiple(question.p);
+                question.p = this.multipleStrToArray(question.p)[randomIndex];
                 question.image = `${MEDIA_URL}${question.p}.jpg`;
             }
 
             if (question.v) {
-                question.v = this.chooseOneFromMultiple(question.v);
+                question.v = this.multipleStrToArray(question.v)[randomIndex];
                 question.video = `${MEDIA_URL}${question.v}.mp4`;
             }
 
             if (question.pr) {
-                question.pr = this.chooseOneFromMultiple(question.pr);
+                question.pr = this.multipleStrToArray(question.pr)[randomIndex];
             }
 
             question.bookmark = this.isQuestionBookmarked(question.id);
@@ -240,10 +242,9 @@ new Vue({
             }
             return correctAnswer != 'x';
         },
-        chooseOneFromMultiple(str) {
+        multipleStrToArray(str) {
             str = str.replaceAll('[', '').replaceAll(']', '');
-            arr = str.split('|');
-            return this.randomArrayItem(arr);
+            return str.split('|');
         },
         calculateProgress() {
             let totalAnswsered = 0;
@@ -289,8 +290,8 @@ new Vue({
             this.setUserData();
             location.reload();
         },
-        randomArrayItem(arr) {
-            return arr[Math.floor(Math.random() * arr.length)];
+        randomArrayIndex(arr) {
+            return Math.floor(Math.random() * arr.length);
         },
         clone(obj) {
             return JSON.parse(JSON.stringify(obj))
