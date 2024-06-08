@@ -122,7 +122,7 @@ new Vue({
             this.questionLanguage = this.userData.lang || LANG;
 
             this.$http.get('./data/questionnaires.json').then(response => {
-                this.data = response.body.filter(x => x.lan == this.userData.lang && x.ver == VER).pop();
+                this.data = response.body.filter(x => x.lan == this.questionLanguage && x.ver == VER).pop();
                 this.data.questions = Object.values(this.data.questions).map((x, i) => { x['index'] = i; return x; });
                 this.loaded = true;
                 this.listValue = 'All';
