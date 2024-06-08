@@ -67,7 +67,6 @@
 
                     </vs-dialog>
                 </div>
-                <button class="button" v-if="question.c">Help</button>
                 <div class="answers">
                     <div v-if="question.pr" class="pre-question">
                         <span>{{question.pr}}:</span>
@@ -96,18 +95,19 @@
                                     :class="{'green': question['v' + id] == 'x', 'red': !question['v' + id] && values['a' + id]}">
                                     <vs-row>
                                         <vs-col vs-justify="center" vs-align="right" w="2">
-                                            <vs-checkbox :success="answer['a' + id]" :danger="!answer['a' + id]" v-model="values['a' + id]"
-                                                disabled></vs-checkbox>
+                                            <vs-checkbox :success="answer['a' + id]" :danger="!answer['a' + id]"
+                                                v-model="values['a' + id]" disabled></vs-checkbox>
                                         </vs-col>
                                         <vs-col w="10">
-                                            {{ question['v' + id] == undefined || question['v' + id] == 'x' || question['v' + id] == '' ?
+                                            {{ question['v' + id] == undefined || question['v' + id] == 'x' ||
+                                            question['v' + id] == '' ?
                                             question['a' + id] : question['v' + id]}}
                                         </vs-col>
                                     </vs-row>
                                 </label>
                             </div>
                         </div>
-                       
+
                     </div>
 
                 </div>
@@ -194,54 +194,75 @@
                 </vs-row>
                 <br>
                 <vs-row justify="center">
-                    <vs-col w="12">
-
-                        <vs-button block @click="location.reload()">
-                            <i class="bx bx-refresh"></i> Reload
-                        </vs-button>
-
-                        <br>
-
-                        <input block type="file" id="file" ref="file" style="display: none" @change="importUserData">
-                        <vs-button block @click="importUserDataTrigger">
-                            <i class="bx bx-import"></i> Import User Data
-                        </vs-button>
-
-                        <vs-button block @click="backupUserData()">
-                            <i class="bx bx-save"></i> Backup User Data
-                        </vs-button>
-
-                        <vs-button danger block @click="resetUserDataDialog = true">
-                            <i class="bx bxs-user-x"></i> Delete User Data
-                        </vs-button>
-
-                        <vs-dialog width="550px" not-center v-model="resetUserDataDialog">
-                            <template #header>
-                                <h4 class="not-margin">
-                                    Reset User Data
-                                </h4>
-                            </template>
-
-
-                            <div class="con-content">
-                                <p>
-                                    Are you sure you want to delete all answers, bookmarks and settings?
-                                </p>
-                            </div>
-
-                            <template #footer>
-                                <div class="con-footer">
-                                    <vs-button @click="resetUserData()" transparent danger>
-                                        Delete
-                                    </vs-button>
-                                    <vs-button @click="resetUserDataDialog=false" transparent>
-                                        Cancel
-                                    </vs-button>
-                                </div>
-                            </template>
-                        </vs-dialog>
+                    <vs-col w="8">
+                        <p>
+                            Questions language
+                        </p>
                     </vs-col>
-                </vs-row>
+                    <vs-col w="4">
+
+                        <vs-select placeholder="Select" @change="onQuestionLanguageChange" v-model="questionLanguage">
+                            <vs-option label="English" value="en">
+                                English
+                            </vs-option>
+                            <vs-option label="Deutsch" value="de">
+                                Deutsch
+                            </vs-option>
+                        </vs-select>
+
+                    </vs-col>
+
+                    <br>
+                    <vs-row justify="center">
+                        <vs-col w="12">
+
+                            <vs-button block @click="location.reload()">
+                                <i class="bx bx-refresh"></i> Reload
+                            </vs-button>
+
+                            <br>
+
+                            <input block type="file" id="file" ref="file" style="display: none"
+                                @change="importUserData">
+                            <vs-button block @click="importUserDataTrigger">
+                                <i class="bx bx-import"></i> Import User Data
+                            </vs-button>
+
+                            <vs-button block @click="backupUserData()">
+                                <i class="bx bx-save"></i> Backup User Data
+                            </vs-button>
+
+                            <vs-button danger block @click="resetUserDataDialog = true">
+                                <i class="bx bxs-user-x"></i> Delete User Data
+                            </vs-button>
+
+                            <vs-dialog width="550px" not-center v-model="resetUserDataDialog">
+                                <template #header>
+                                    <h4 class="not-margin">
+                                        Reset User Data
+                                    </h4>
+                                </template>
+
+
+                                <div class="con-content">
+                                    <p>
+                                        Are you sure you want to delete all answers, bookmarks and settings?
+                                    </p>
+                                </div>
+
+                                <template #footer>
+                                    <div class="con-footer">
+                                        <vs-button @click="resetUserData()" transparent danger>
+                                            Delete
+                                        </vs-button>
+                                        <vs-button @click="resetUserDataDialog=false" transparent>
+                                            Cancel
+                                        </vs-button>
+                                    </div>
+                                </template>
+                            </vs-dialog>
+                        </vs-col>
+                    </vs-row>
             </div>
         </div>
         <footer class="app-footer">

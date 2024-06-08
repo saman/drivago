@@ -17,6 +17,7 @@ new Vue({
         index: 0,
         progress: 0,
         autoNextQuestion: false,
+        questionLanguage: LANG,
         loadingAutoNextQuestion: false,
         validateValue: false,
         values: {
@@ -118,9 +119,10 @@ new Vue({
             this.progress = this.userData.progress || 0;
             this.autoNextQuestion = this.userData.autoNextQuestion || false;
             this.userData.stats = this.userData.stats || {};
+            this.questionLanguage = this.userData.lang || LANG;
 
             this.$http.get('./data/questionnaires.json').then(response => {
-                this.data = response.body.filter(x => x.lan == LANG && x.ver == VER).pop();
+                this.data = response.body.filter(x => x.lan == this.userData.lang && x.ver == VER).pop();
                 this.data.questions = Object.values(this.data.questions).map((x, i) => { x['index'] = i; return x; });
                 this.loaded = true;
                 this.listValue = 'All';
@@ -290,6 +292,11 @@ new Vue({
             this.setUserData();
             location.reload();
         },
+        onQuestionLanguageChange() {
+            this.userData.lang = this.questionLanguage;
+            this.setUserData();
+            location.reload();
+        },        
         randomArrayIndex(arr) {
             return Math.floor(Math.random() * arr.length);
         },
